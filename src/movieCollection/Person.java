@@ -9,6 +9,14 @@ public class Person {
         this.isMan = isMan;
     }
 
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", isMan=" + isMan +
+                '}';
+    }
+
     public String getName() {
         return name;
     }
