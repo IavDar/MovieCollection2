@@ -8,6 +8,15 @@ public class Person {
         this.name = name;
         this.isMan = isMan;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", isMan=" + isMan +
+                '}';
+    }
+
     // @Tatjana геттеры-сеттеры сгенерированы автоматически, по ходу может понадобиться сделать проверки на null и пр.
     public String getName() {
         return name;

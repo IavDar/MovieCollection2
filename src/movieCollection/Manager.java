@@ -1,6 +1,20 @@
 package movieCollection;
+
 import java.util.HashMap;
+import java.util.Map;
+
 public class Manager {
+
+    private Map<Long, Movie> movieMap;
+
+    public void setMovieMap(Map<Long, Movie> movieMap) {
+        this.movieMap = movieMap;
+    }
+
+    public Manager() {
+        this.movieMap = new HashMap<>();;
+    }
+
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         // (вроде работает, текст можно править) @Tatjana
         System.out.println("Выберите команду из списка:\n" +
@@ -61,6 +75,9 @@ public class Manager {
 
     public void startRemoveGreaterCommand(String argIn) {
         //Дарья
+        //1.Пройти по мап. 2.Удалить из него каждый элемент, который подходит под условие
+        // 2. Условие movie.getId() > id , усли да, то map.remove(movie.getId())
+
         System.out.println("remove greater");
     }
 
@@ -71,6 +88,29 @@ public class Manager {
 
     public void startCountLessThanGenreCommand(String argIn) {
         //Дарья
+
+
+        MovieGenre genre;
+
+        switch (argIn) {
+            case "ACTION":
+                genre = MovieGenre.ACTION;
+                break;
+
+            case "ADVENTURE":
+                genre = MovieGenre.ADVENTURE;
+                break;
+
+            //case для каждого значения енама тут
+
+            default:
+                System.out.println("Ошибка - введенный аргумент неправильный");
+                return;
+        }
+
+
+           // MovieGenre.ADVENTURE.ordinal();
+
         System.out.println("count less");
     }
 
