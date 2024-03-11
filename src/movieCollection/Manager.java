@@ -1,4 +1,5 @@
 package movieCollection;
+import java.util.HashMap;
 public class Manager {
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         // (вроде работает, текст можно править) @Tatjana
@@ -17,23 +18,24 @@ public class Manager {
         System.out.print("Введите выбранную команду: ");
     }
 
-    public void startHelpCommand() {// названия команд объяснял Карлен 09/03
+    public void startAllCommand() {// Help
         //Екатерина
-        System.out.println("help");
+        System.out.println("Все команды:");
     }
 
     public void startInfoCommand() {
         //Екатерина (про дату инициализации Карлен сказал, можно не делать, объяснение про метод в видео с 32 минуты)
-        System.out.println("info");
+        System.out.println("Информация о Коллекция: ");
     }
 
     public void startShowCommand() {
         //Екатерина
-        System.out.println("show");
+        System.out.println("Все элементы коллекции.");
     }
 
     public void startInsertCommand() {
         //Екатерина
+        
         System.out.println("insert");
     }
 
