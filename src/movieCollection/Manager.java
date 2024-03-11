@@ -2,9 +2,10 @@ package movieCollection;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class Manager {
-
+    Scanner scanner;
     private Map<Long, Movie> movieMap;
 
     public void setMovieMap(Map<Long, Movie> movieMap) {
@@ -12,29 +13,42 @@ public class Manager {
     }
 
     public Manager() {
-        this.movieMap = new HashMap<>();;
+        Scanner scanner = new Scanner(System.in);
+        this.movieMap = new HashMap<>();
     }
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         // (вроде работает, текст можно править) @Tatjana
-        System.out.println("Выберите команду из списка:\n" +
-                "help : вывести справку по доступным командам\n" +
-                "info : вывести информацию о коллекции\n" +
-                "show : вывести все элементы коллекции\n" +
-                "insert: добавить новый элемент \n" +
-                "update {id} : обновить значение элемента коллекции, id которого равен заданному\n" +
-                "remove_key {id} : удалить элемент из коллекции по его ключу\n" +
-                "clear : очистить коллекцию\n" +
-                "exit : завершить программу (без сохранения в файл)\n" +
-                "remove_greater {fieldValue} : удалить из коллекции все элементы, ключ которых превышает заданный\n" +
-                "remove_lower {fieldValue} : удалить из коллекции все элементы, ключ которых меньше, чем заданный\n" +
-                "count_less_than_genre {genre}: вывести количество элементов, значение поля genre которых меньше заданного\n");
+        System.out.println(
+                "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n\n" +
+                "help\n" +
+                "info\n" +
+                "show\n" +
+                "insert\n" +
+                "update {id}\n" +
+                "remove_key {id}\n" +
+                "clear\n" +
+                "exit\n" +
+                "remove_greater {fieldValue}\n" +
+                "remove_lower {fieldValue}\n" +
+                "count_less_than_genre {genre}\n ");
         System.out.print("Введите выбранную команду: ");
+
     }
 
-    public void startAllCommand() {// Help
-        //Екатерина
-        System.out.println("Все команды:");
+    public void startHelpCommand() {// Help //Екатерина
+        System.out.println(
+                        "info : вывести информацию о коллекции\n" +
+                        "show : вывести все элементы коллекции\n" +
+                        "insert: добавить новый элемент \n" +
+                        "update {id} : обновить значение элемента коллекции, id которого равен заданному\n" +
+                        "remove_key {id} : удалить элемент из коллекции по его ключу\n" +
+                        "clear : очистить коллекцию\n" +
+                        "exit : завершить программу (без сохранения в файл)\n" +
+                        "remove_greater {fieldValue} : удалить из коллекции все элементы, ключ которых превышает заданный\n" +
+                        "remove_lower {fieldValue} : удалить из коллекции все элементы, ключ которых меньше, чем заданный\n" +
+                        "count_less_than_genre {genre}: вывести количество элементов, значение поля genre которых меньше заданного\n");
+        System.out.print("Введите выбранную команду: ");
     }
 
     public void startInfoCommand() {
@@ -49,7 +63,7 @@ public class Manager {
 
     public void startInsertCommand() {
         //Екатерина
-        
+
         System.out.println("insert");
     }
 
@@ -89,7 +103,6 @@ public class Manager {
     public void startCountLessThanGenreCommand(String argIn) {
         //Дарья
 
-
         MovieGenre genre;
 
         switch (argIn) {
@@ -109,7 +122,7 @@ public class Manager {
         }
 
 
-           // MovieGenre.ADVENTURE.ordinal();
+        // MovieGenre.ADVENTURE.ordinal();
 
         System.out.println("count less");
     }

@@ -3,7 +3,7 @@ package movieCollection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.List;
+
 
 
 public class Main {
@@ -17,8 +17,9 @@ public class Main {
         String usersLine;// строка ввода пользователя
 
         System.out.println("Вас приветствует MovieCollection!\n");
-        do {
-            manager.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
+        manager.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
+        do { // работу цикла надо проверить, когда напишем методы
+
             usersLine = scanner.nextLine();// считывание ввода пользователя
             String[] lineInParts = null;//вводим переменные для последующей обработки строк с пробелами
             String argIn = null;

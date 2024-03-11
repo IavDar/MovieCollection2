@@ -1,5 +1,7 @@
 package movieCollection;
 
+import java.util.Objects;
+
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private boolean isMan; //Поле не может быть null
@@ -34,5 +36,16 @@ public class Person {
         this.isMan = isMan;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return isMan == person.isMan && Objects.equals(getName(), person.getName());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), isMan);
+    }
 }

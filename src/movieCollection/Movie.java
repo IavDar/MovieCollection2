@@ -1,5 +1,7 @@
 package movieCollection;
 
+import java.util.Objects;
+
 public class Movie {
     private long id; //Значение поля должно быть больше 0,
     // Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -58,6 +60,20 @@ public class Movie {
                 ", genre=" + genre +
                 ", screenwriter=" + screenwriter +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return getId() == movie.getId() && Objects.equals(getMovieName(), movie.getMovieName())
+                && getGenre() == movie.getGenre() && Objects.equals(getScreenwriter(), movie.getScreenwriter());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getMovieName(), getGenre(), getScreenwriter());
     }
 }
 
