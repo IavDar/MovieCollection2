@@ -17,7 +17,7 @@ public class Movie {
         Movie.counter++;
         this.id = 918291822 + Movie.counter; //автоматическая генерация id
     }
-
+// @Tatjana геттеры-сеттеры сгенерированы автоматически, по ходу может понадобиться сделать проверки на null и пр.
     public long getId() {
         return id;
     }

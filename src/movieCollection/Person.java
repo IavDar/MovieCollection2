@@ -17,6 +17,7 @@ public class Person {
                 '}';
     }
 
+    // @Tatjana геттеры-сеттеры сгенерированы автоматически, по ходу может понадобиться сделать проверки на null и пр.
     public String getName() {
         return name;
     }
@@ -25,12 +26,13 @@ public class Person {
         this.name = name;
     }
 
-    public boolean isMan() {
+    public boolean IsMan() {
         return isMan;
     }
 
-    public void setMan(boolean man) {
-        isMan = man;
+    public void setMan(boolean isMan) {
+        this.isMan = isMan;
     }
+
 
 }

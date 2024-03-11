@@ -17,7 +17,7 @@ public class Manager {
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         // (вроде работает, текст можно править) @Tatjana
-        System.out.println("Вас приветствует MovieCollection! Выберите команду из списка:\n" +
+        System.out.println("Выберите команду из списка:\n" +
                 "help : вывести справку по доступным командам\n" +
                 "info : вывести информацию о коллекции\n" +
                 "show : вывести все элементы коллекции\n" +
@@ -34,67 +34,64 @@ public class Manager {
 
     public void startHelpCommand() {// названия команд объяснял Карлен 09/03
         //Екатерина
-        System.out.println("");
+        System.out.println("help");
     }
 
     public void startInfoCommand() {
-        //Екатерина
-        System.out.println("");
+        //Екатерина (про дату инициализации Карлен сказал, можно не делать, объяснение про метод в видео с 32 минуты)
+        System.out.println("info");
     }
 
     public void startShowCommand() {
         //Екатерина
-        System.out.println("");
+        System.out.println("show");
     }
 
     public void startInsertCommand() {
         //Екатерина
-        System.out.println("");
+        System.out.println("insert");
     }
 
-    public void startUpdateCommand() {
+    public void startUpdateCommand(String argIn) {
         //Татьяна
-        System.out.println("");
+        System.out.println("update");
     }
 
-    public void startRemoveKeyCommand() {
+    public void startRemoveKeyCommand(String argIn) {
         //Татьяна
-        System.out.println("");
+        System.out.println("remove");
     }
 
     public void startClearCommand() {
         //Татьяна
-        System.out.println("");
+        System.out.println("clear");
     }
 
     public void startExitCommand() {
         //Татьяна
-        System.out.println("");
+        System.out.println("Программа завершена. До свидания!");
     }
 
-    public void startRemoveGreaterCommand() {
+    public void startRemoveGreaterCommand(String argIn) {
         //Дарья
         //1.Пройти по мап. 2.Удалить из него каждый элемент, который подходит под условие
         // 2. Условие movie.getId() > id , усли да, то map.remove(movie.getId())
 
-        System.out.println("");
+        System.out.println("remove greater");
     }
 
-    public void startRemoveLowerCommand() {
+    public void startRemoveLowerCommand(String argIn) {
         //Дарья
-        System.out.println("");
+        System.out.println("remove lower");
     }
 
-    public void startLessThanGenreCommand(String[] args) {
+    public void startCountLessThanGenreCommand(String argIn) {
         //Дарья
-        if (args.length != 2) {
-            System.out.println("Ошибка - неправильное количество аргументов в команде count_less_than_genre");
-            return;
-        }
+
 
         MovieGenre genre;
 
-        switch (args [1]) {
+        switch (argIn) {
             case "ACTION":
                 genre = MovieGenre.ACTION;
                 break;
@@ -113,7 +110,7 @@ public class Manager {
 
            // MovieGenre.ADVENTURE.ordinal();
 
-        System.out.println("");
+        System.out.println("count less");
     }
 
 }
