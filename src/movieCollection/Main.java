@@ -50,7 +50,7 @@ public class Main {
                     break;
 
                 case "help":
-                    manager.startHelpCommand();
+                   // manager.startHelpCommand();
                     break;
 
                 case "info":

@@ -123,7 +123,7 @@ public class Manager {
 
         int counter = 0;
         for (Movie movie : movieMap.values()) {
-            
+
 
             if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
                 counter = counter +1;
