@@ -1,11 +1,16 @@
 package movieCollection;
 
+import jdk.jshell.execution.Util;
+
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Manager {
 
     private Map<Long, Movie> movieMap;
+
+
 
     public void setMovieMap(Map<Long, Movie> movieMap) {
         this.movieMap = movieMap;
@@ -74,14 +79,33 @@ public class Manager {
 
     public void startRemoveGreaterCommand(String argIn) {
         //Дарья
-        //1.Пройти по мап. 2.Удалить из него каждый элемент, который подходит под условие
-        // 2. Условие movie.getId() > id , усли да, то map.remove(movie.getId())
+
+        int counter = 0;
+        for (Movie movie : movieMap.values()) {
+            if (movie.getId() > Long.valueOf(argIn) ) {
+
+                System.out.println("Удалили " + movie.getId());
+
+                movieMap.remove(movie.getId());
+            }
+        }
 
         System.out.println("remove greater");
     }
 
     public void startRemoveLowerCommand(String argIn) {
         //Дарья
+
+        int counter = 0;
+        for (Movie movie : movieMap.values()) {
+            if (movie.getId() < Long.valueOf(argIn) ) {
+
+                System.out.println("Удалили " + movie.getId());
+
+                movieMap.remove(movie.getId());
+            }
+        }
+
         System.out.println("remove lower");
     }
 
@@ -89,28 +113,24 @@ public class Manager {
         //Дарья
 
 
-        MovieGenre genre;
+        if (!Utils.isEnum(argIn, MovieGenre.class)) {
+            System.out.println("Указанно некорректное значение");
+            return;
+        }
 
-        switch (argIn) {
-            case "ACTION":
-                genre = MovieGenre.ACTION;
-                break;
+        MovieGenre targetGenre = MovieGenre.valueOf(argIn);
 
-            case "ADVENTURE":
-                genre = MovieGenre.ADVENTURE;
-                break;
+        int counter = 0;
+        for (Movie movie : movieMap.values()) {
+            
 
-            //case для каждого значения енама тут
-
-            default:
-                System.out.println("Ошибка - введенный аргумент неправильный");
-                return;
+            if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
+                counter = counter +1;
+            }
         }
 
 
-           // MovieGenre.ADVENTURE.ordinal();
-
-        System.out.println("count less");
+        System.out.println("Количество элементов: " + counter);
     }
 
 }
