@@ -103,7 +103,7 @@ public class Manager {
                 genre = MovieGenre.ADVENTURE;
                 break;
 
-            //case для каждого значения енума тут
+            //case для каждого значения енама тут
 
             default:
                 System.out.println("Ошибка - введенный аргумент неправильный");
