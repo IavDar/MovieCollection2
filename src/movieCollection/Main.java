@@ -18,11 +18,13 @@ public class Main {
         Person person2 = new Person("Евгений Велтистов", true);
         Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION , person1);
         Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE , person2);
+
         Movie[] movies = new Movie[2];
         movies[0] = movie1;
         movies[1] = movie2;
         movieMap.put(movie1.getId(), movie1);
         movieMap.put(movie2.getId(), movie2);
+
 
 //        Collections.sort(movieMap); // нужна сортировка по ключу HashMap
 //
@@ -36,11 +38,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
 
-        /*Person person = new Person("Kameron", true);
-
-        movieMap.put(54346L, new Movie ("Titanic", MovieGenre.ACTION, person));
-        movieMap.put(54345L, new Movie ("Titanic2", MovieGenre.ADVENTURE, person));
-        movieMap.put(54347L, new Movie ("Titanic3", MovieGenre.FANTASY, person)); */
 
         manager.setMovieMap(movieMap);
 

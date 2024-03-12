@@ -32,21 +32,13 @@ public class Person {
         }
     }
 
-
     public boolean IsMan() {
         return isMan;
     }
 
-    public void setMan(String isMan) {
-        if (isMan.equals("yes") || isMan.equals("да")) {
-            this.isMan = true;
-        } else if (isMan.equals("no") || isMan.equals("нет")) {
-            this.isMan = false;
-        }else {
-            System.out.println("Введено неверное значение");
-        }
+    public void setMan(boolean man) {
+        isMan = man;
     }
-
 
     @Override
     public boolean equals(Object o) {
