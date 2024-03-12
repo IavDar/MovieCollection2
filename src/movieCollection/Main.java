@@ -24,13 +24,13 @@ public class Main {
         movieMap.put(movie1.getId(), movie1);
         movieMap.put(movie2.getId(), movie2);
 
-//        Collections.sort(movieMap); // нужна сортировка по ключу HashMap
-//
-//        for (Movie movie : movies){
-//        manager.addMovie(movie);
-//        }
-//        System.out.println(movieMap); // не сработало
 
+        //Collections.sort(movieMap); // нужна сортировка по ключу HashMap
+
+        for (Movie movie : movies){// добавление фильмов в HashMap с помощью метода из Manager
+        manager.addMovie(movie);
+        }
+        System.out.println(movieMap);
 
 
         Scanner scanner = new Scanner(System.in);

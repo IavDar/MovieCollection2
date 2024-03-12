@@ -76,14 +76,20 @@ public class Movie implements Comparable<Movie> {
         return Objects.hash(getId(), getMovieName(), getGenre(), getScreenwriter());
     }
 
+//    @Override
+//    public int compareTo(Movie o) {
+//        if (this.getId() < o.getId()) {
+//            return -1;
+//        } else if (this.getId() > o.getId()){
+//            return 1;
+//        } else
+//        return 0;
+//    }
+
     @Override
-    public int compareTo(Movie o) {
-        if (this.getId() < o.getId()) {
-            return -1;
-        } else if (this.getId() > o.getId()){
-            return 1;
-        } else
-        return 0;
+    public int compareTo(Movie o) {// переопределяем метод, приводим результат к int
+        return (int)(this.getId() - o.getId());
     }
+
 }
 
