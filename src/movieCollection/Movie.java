@@ -2,7 +2,7 @@ package movieCollection;
 
 import java.util.Objects;
 
-public class Movie {
+public class Movie implements Comparable<Movie> {
     private long id; //Значение поля должно быть больше 0,
     // Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String movieName; //Поле не может быть null, Строка не может быть пустой
@@ -12,7 +12,7 @@ public class Movie {
 
     private static int counter = 0;
 
-    public Movie(long id, String movieName, MovieGenre genre, Person screenwriter) {
+    public Movie(String movieName, MovieGenre genre, Person screenwriter) {
         this.movieName = movieName;
         this.genre = genre;
         this.screenwriter = screenwriter;
@@ -74,6 +74,16 @@ public class Movie {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getMovieName(), getGenre(), getScreenwriter());
+    }
+
+    @Override
+    public int compareTo(Movie o) {
+        if (this.getId() < o.getId()) {
+            return -1;
+        } else if (this.getId() > o.getId()){
+            return 1;
+        } else
+        return 0;
     }
 }
 

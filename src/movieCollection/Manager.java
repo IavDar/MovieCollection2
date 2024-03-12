@@ -8,14 +8,24 @@ public class Manager {
     Scanner scanner;
     private Map<Long, Movie> movieMap;
 
-    public void setMovieMap(Map<Long, Movie> movieMap) {
+    public void setMovieMap(Map<Long, Movie> movieMap) { //нам точно нужен сеттер?
         this.movieMap = movieMap;
     }
 
     public Manager() {
-        Scanner scanner = new Scanner(System.in);
-        this.movieMap = new HashMap<>();
+        scanner = new Scanner(System.in);
+        movieMap = new HashMap<>();
     }
+
+    public void addMovie(Movie movie){ // метод для добавления фильмов в HashMap
+        movieMap.put(movie.getId(), movie);
+    }
+
+    Person person1 = new Person("Инна Веткина", false);
+    Person person2 = new Person("Евгений Велтистов", true);
+    Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION , person1);
+    Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE , person2);
+
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         // (вроде работает, текст можно править) @Tatjana
@@ -72,14 +82,34 @@ public class Manager {
         System.out.println("update");
     }
 
-    public void startRemoveKeyCommand(String argIn) {
-        //Татьяна
+    public void startRemoveKeyCommand(String argIn) {//Татьяна
+
         System.out.println("remove");
     }
 
-    public void startClearCommand() {
-        //Татьяна
-        System.out.println("clear");
+    public void startClearCommand() {//Татьяна
+
+        do {
+            System.out.print("Вы действительно хотите удалить все элементы из списка? [yes/no] : ");
+            scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("yes")) {
+                Map<Long, Movie> movieMap1 = movieMap;// пока сделала на всякий случай с копией
+                movieMap1.clear();
+                System.out.println("Список очищен");
+                break;
+
+            } else if (answer.equalsIgnoreCase("no")) {
+                System.out.println("Команда отменена");
+                break;
+
+            } else {
+                System.out.println("Вы ввели неверное значение. Попробуйте ещё раз. ");
+                continue;
+            }
+
+        } while (true);// ??? условие цикла
+
     }
 
     public void startExitCommand() {

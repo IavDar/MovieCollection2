@@ -1,5 +1,6 @@
 package movieCollection;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -13,13 +14,32 @@ public class Main {
         // @Tatjana пока выбрала для ключа - id, для значения - объекты класса Movie (как в задании)
         Manager manager = new Manager(); // через дефолтный конструктор создн объект класса Manager, чтобы вызывать на нем методы
 
+        Person person1 = new Person("Инна Веткина", false);
+        Person person2 = new Person("Евгений Велтистов", true);
+        Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION , person1);
+        Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE , person2);
+        Movie[] movies = new Movie[2];
+        movies[0] = movie1;
+        movies[1] = movie2;
+        movieMap.put(movie1.getId(), movie1);
+        movieMap.put(movie2.getId(), movie2);
+
+//        Collections.sort(movieMap); // нужна сортировка по ключу HashMap
+//
+//        for (Movie movie : movies){
+//        manager.addMovie(movie);
+//        }
+//        System.out.println(movieMap); // не сработало
+
+
+
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
 
         System.out.println("Вас приветствует MovieCollection!\n");
-        manager.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
-        do { // работу цикла надо проверить, когда напишем методы
 
+        do { // работу цикла надо проверить, когда напишем методы
+            manager.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
             usersLine = scanner.nextLine();// считывание ввода пользователя
             String[] lineInParts = null;//вводим переменные для последующей обработки строк с пробелами
             String argIn = null;
@@ -84,6 +104,7 @@ public class Main {
                     System.out.println("Вы ввели неверную команду. Попробуйте ещё раз: ");
                     continue; //??? надо проверить
             }
+
         } while (!usersLine.equals("exit"));
 
 
