@@ -16,14 +16,37 @@ public class Main {
 
         Person person1 = new Person("Инна Веткина", false);
         Person person2 = new Person("Евгений Велтистов", true);
+        Person person3 = new Person("Люк Бессон", true);
+        Person person4 = new Person("David Fincher", true);
+        Person person5 = new Person("Ryan Murphy", true);
+        Person person6 = new Person("Fatih Akin", true);
+        Person person7 = new Person("Tim Burton", true);
+        Person person8 = new Person("Александр Войтинский", true);
         Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION , person1);
         Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE , person2);
-        Movie[] movies = new Movie[2];
+        Movie movie3 = new Movie("Люси",MovieGenre.ACTION, person3);
+        Movie movie4 = new Movie("Gone Girl",MovieGenre.TRAGEDY, person4);
+        Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
+        Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
+        Movie movie7 = new Movie("Die Insel der besonderen Kinder",MovieGenre.FANTASY, person7);
+        Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
+        Movie[] movies = new Movie[7];
         movies[0] = movie1;
         movies[1] = movie2;
+        movies[2] = movie3;
+        movies[3] = movie4;
+        movies[4] = movie5;
+        movies[5] = movie6;
+        movies[6] = movie7;
+        movies[7] = movie8;
         movieMap.put(movie1.getId(), movie1);
         movieMap.put(movie2.getId(), movie2);
-
+        movieMap.put(movie3.getId(), movie3);
+        movieMap.put(movie4.getId(), movie4);
+        movieMap.put(movie5.getId(), movie5);
+        movieMap.put(movie6.getId(), movie6);
+        movieMap.put(movie7.getId(), movie7);
+        movieMap.put(movie8.getId(), movie8);
 //        Collections.sort(movieMap); // нужна сортировка по ключу HashMap
 //
 //        for (Movie movie : movies){
