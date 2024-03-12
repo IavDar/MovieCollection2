@@ -25,16 +25,28 @@ public class Person {
     }
 
     public void setName(String name) {
-        this.name = name;
+        if (this.name.equals(null)) {
+            System.out.println("Поле не может быть пустым");
+        } else {
+            this.name = name;
+        }
     }
+
 
     public boolean IsMan() {
         return isMan;
     }
 
-    public void setMan(boolean isMan) {
-        this.isMan = isMan;
+    public void setMan(String isMan) {
+        if (isMan.equals("yes") || isMan.equals("да")) {
+            this.isMan = true;
+        } else if (isMan.equals("no") || isMan.equals("нет")) {
+            this.isMan = false;
+        }else {
+            System.out.println("Введено неверное значение");
+        }
     }
+
 
     @Override
     public boolean equals(Object o) {

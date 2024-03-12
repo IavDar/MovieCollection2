@@ -1,10 +1,13 @@
 package movieCollection;
 
-import jdk.jshell.execution.Util;
+
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+
+
 
 
 public class Manager {
@@ -125,9 +128,10 @@ public class Manager {
     public void startRemoveGreaterCommand(String argIn) {
         //Дарья
 
-        int counter = 0;
         for (Movie movie : movieMap.values()) {
-            if (movie.getId() > Long.valueOf(argIn) ) {
+            if (movie.getId() > Long.valueOf(argIn))
+
+            {
 
                 System.out.println("Удалили " + movie.getId());
 
@@ -141,9 +145,12 @@ public class Manager {
     public void startRemoveLowerCommand(String argIn) {
         //Дарья
 
-        int counter = 0;
+
+
         for (Movie movie : movieMap.values()) {
-            if (movie.getId() < Long.valueOf(argIn) ) {
+
+            if (movie.getId() < Long.valueOf(argIn) )
+            {
 
                 System.out.println("Удалили " + movie.getId());
 

@@ -32,8 +32,15 @@ public class Movie implements Comparable<Movie> {
         return movieName;
     }
 
-    public void setMovieName(String movieName) {
-        this.movieName = movieName;
+    public void setMovieName(String movieName) { // проверка movieName:
+
+        if (movieName.equals(null)) {
+            System.out.println("Поле не может быть NULL");
+        } else if (movieName.equals("")) {
+            System.out.println("Строка не может быть пустой");
+        } else {
+            this.movieName = movieName;
+        }
     }
 
     public MovieGenre getGenre() {
