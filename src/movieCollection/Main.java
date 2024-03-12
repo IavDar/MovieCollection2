@@ -36,6 +36,16 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
 
+        Person person = new Person("Kameron", true);
+
+        movieMap.put(54346L, new Movie ("Titanic", MovieGenre.ACTION, person));
+        movieMap.put(54345L, new Movie ("Titanic2", MovieGenre.ADVENTURE, person));
+        movieMap.put(54347L, new Movie ("Titanic3", MovieGenre.FANTASY, person));
+
+        manager.setMovieMap(movieMap);
+
+        System.out.println("Добавили в HashMap: \n" + movieMap + "\n " );
+
         System.out.println("Вас приветствует MovieCollection!\n");
 
         do { // работу цикла надо проверить, когда напишем методы
@@ -61,7 +71,7 @@ public class Main {
                     break;
 
                 case "help":
-                    manager.startHelpCommand();
+                   // manager.startHelpCommand();
                     break;
 
                 case "info":
