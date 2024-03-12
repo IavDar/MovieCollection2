@@ -18,9 +18,9 @@ public class Main {
 
         Person person = new Person("Kameron", true);
 
-        movieMap.put(54346L, new Movie (54346, "Titanic", MovieGenre.ACTION, person));
-        movieMap.put(54345L, new Movie (54345, "Titanic2", MovieGenre.ADVENTURE, person));
-        movieMap.put(54347L, new Movie (54347, "Titanic3", MovieGenre.FANTASY, person));
+        movieMap.put(54346L, new Movie ("Titanic", MovieGenre.ACTION, person));
+        movieMap.put(54345L, new Movie ("Titanic2", MovieGenre.ADVENTURE, person));
+        movieMap.put(54347L, new Movie ("Titanic3", MovieGenre.FANTASY, person));
 
         manager.setMovieMap(movieMap);
 

@@ -10,7 +10,7 @@ public class Movie {
 
     private static int counter = 0;
 
-    public Movie(long id, String movieName, MovieGenre genre, Person screenwriter) {
+    public Movie(String movieName, MovieGenre genre, Person screenwriter) {
         this.movieName = movieName;
         this.genre = genre;
         this.screenwriter = screenwriter;
