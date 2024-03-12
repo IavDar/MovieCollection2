@@ -58,7 +58,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
 
+       
         manager.setMovieMap(movieMap);// проверить???
+
 
         System.out.println("Добавили в HashMap: \n" + movieMap + "\n " );
 

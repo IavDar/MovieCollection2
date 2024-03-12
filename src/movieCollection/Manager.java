@@ -1,10 +1,8 @@
 package movieCollection;
 
-import jdk.jshell.execution.Util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+
+import java.util.*;
 
 
 public class Manager {
@@ -125,33 +123,52 @@ public class Manager {
     public void startRemoveGreaterCommand(String argIn) {
         //Дарья
 
-        int counter = 0;
-        for (Movie movie : movieMap.values()) {
-            if (movie.getId() > Long.valueOf(argIn) ) {
+        if (!Utils.isLong(argIn)) {
+            System.out.println("Указанно некорректное значение");
+            return;
+        }
 
-                System.out.println("Удалили " + movie.getId());
+        Long idIn = Long.valueOf(argIn);
+        Set<Long> set = new HashSet<>();
 
-                movieMap.remove(movie.getId());
+        for (Long idMap : movieMap.keySet()) {
+            if (idMap > idIn){
+                set.add(idMap);
             }
         }
 
-        System.out.println("remove greater");
+        for (Long id : set) {
+
+            System.out.println("Удалили " + " " + movieMap.get(id));
+
+            movieMap.remove(id);
+        }
     }
 
     public void startRemoveLowerCommand(String argIn) {
         //Дарья
 
-        int counter = 0;
-        for (Movie movie : movieMap.values()) {
-            if (movie.getId() < Long.valueOf(argIn) ) {
+        if (!Utils.isLong(argIn)) {
+            System.out.println("Указанно некорректное значение");
+            return;
+        }
 
-                System.out.println("Удалили " + movie.getId());
+        Long idIn = Long.valueOf(argIn);
+        Set<Long> set = new HashSet<>();
 
-                movieMap.remove(movie.getId());
+        for (Long idMap : movieMap.keySet()) {
+            if (idMap < idIn){
+                set.add(idMap);
             }
         }
 
-        System.out.println("remove lower");
+        for (Long id : set) {
+
+            System.out.println("Удалили " + " " + movieMap.get(id));
+
+            movieMap.remove(id);
+        }
+
     }
 
     public void startCountLessThanGenreCommand(String argIn) {
@@ -167,7 +184,6 @@ public class Manager {
         int counter = 0;
         for (Movie movie : movieMap.values()) {
 
-           // MovieGenre.ADVENTURE.ordinal();
 
             if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
                 counter = counter +1;
