@@ -66,13 +66,15 @@ public class Manager {
 
     public void startInfoCommand() {
         //Екатерина (про дату инициализации Карлен сказал, можно не делать, объяснение про метод в видео с 32 минуты)
-        System.out.println("Информация о Коллекция: ");
+         System.out.println("Информация о Коллекци: " + this.movieMap.size());
     }
 
     public void startShowCommand() {
         //Екатерина
-        System.out.println("Все элементы коллекции.");
-    }
+      System.out.println("Все элементы:");
+        for (Movie movie: this.movieMap.values()){
+            System.out.println(movie);
+        }
 
     public void startInsertCommand() {
         //Екатерина
