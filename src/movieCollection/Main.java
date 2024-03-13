@@ -32,7 +32,6 @@ public class Main {
         Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
         Movie movie7 = new Movie("Die Insel der besonderen Kinder",MovieGenre.FANTASY, person7);
         Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
-        Movie movie9 = new Movie("По щучъему велению1.", MovieGenre.FANTASY, person8);
 
         movieMap.put(movie1.getId(), movie1);
         movieMap.put(movie2.getId(), movie2);
@@ -42,7 +41,6 @@ public class Main {
         movieMap.put(movie6.getId(), movie6);
         movieMap.put(movie7.getId(), movie7);
         movieMap.put(movie8.getId(), movie8);
-        movieMap.put(movie9.getId(), movie9);
 
         // для наглядности выводим HashMap на печать
         System.out.println("Коллекция фильмов:\n " + movieMap);

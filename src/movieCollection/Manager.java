@@ -15,7 +15,7 @@ public class Manager {
         this.movieMap = new HashMap<>();
     }
 
-    public void addMovie(Movie movie) { // метод для добавления фильмов в HashMap
+    public void addMovie(Movie movie) { // метод для добавления фильмов в HashMap. Не работает ((
         movieMap.put(movie.getId(), movie);
     }
 
@@ -35,8 +35,8 @@ public class Manager {
     Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
     Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
     Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
-    Movie movie9 = new Movie("По щучъему велению1.", MovieGenre.FANTASY, person8);
-    // помещаем их в массив
+
+
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         System.out.println(
@@ -70,13 +70,9 @@ public class Manager {
                         "count_less_than_genre {genre}: вывести количество элементов, значение поля genre которых меньше заданного\n");
     }
 
-    public void startInfoCommand() {
-        //Екатерина
-        System.out.println("Информация о Коллекци: " + this.movieMap.size());
+    public void startInfoCommand() {//Екатерина
 
-
-
-
+        System.out.println("Коллекция содержит: " + this.movieMap.size() + " элементов\n");
     }
 
     public void startShowCommand() {
@@ -87,10 +83,87 @@ public class Manager {
         }
     }
 
+    //добавление Фильма с построковой задачей полей
     public void startInsertCommand() {
-        //Екатерина
+        System.out.println("Добавить фильм");
 
-        System.out.println("insert");
+        Person person = new Person(addPersonName(), addPersonGender());
+        Movie movie1 = new Movie(addMovieName(), addMovieGenre(), person);
+        movieMap.put(movie1.getId(), movie1);
+
+        System.out.println("Фильм добавлен в коллекцию");
+    }
+
+    //подполя для получения аргументов
+    private String addMovieName() {
+        String movieName;
+        do {
+            System.out.println("Задайте название фильма: ");
+            movieName = scanner.nextLine();
+            if (movieName.equals("")) {
+                System.out.println("Строка не может быть пустой");
+                continue;
+            } else {
+                return movieName;
+            }
+        } while (true);
+    }
+
+    private MovieGenre addMovieGenre() {
+        String lineIn;
+        MovieGenre movieGenre = null;
+        do {
+            System.out.println("Задайте жанр: ");
+            System.out.println(Arrays.toString(MovieGenre.values()));
+            lineIn = scanner.nextLine().toUpperCase();
+            switch (lineIn) {
+                case "ACTION":
+                    return MovieGenre.ACTION;
+                case "ADVENTURE":
+                    return MovieGenre.ADVENTURE;
+                case "TRAGEDY":
+                    return MovieGenre.TRAGEDY;
+                case "HORROR":
+                    return MovieGenre.HORROR;
+                case "FANTASY":
+                    return MovieGenre.FANTASY;
+                default:
+                    System.out.println("Неверно задан жанр");
+            }
+        } while (true);
+
+    }
+
+    //подполя для получения имени Person
+    private String addPersonName() {
+        String personName;
+        do {
+            System.out.println("Задайте имя сценариста: ");
+            personName = scanner.nextLine();
+            if (personName.equals("")) {
+                System.out.println("Строка не может быть пустой.");
+                continue;
+            } else {
+                return personName;
+            }
+        } while (true);
+    }
+
+    //подполя для получения пола Person
+    private boolean addPersonGender() {
+        String lineIn;
+        do {
+            System.out.println("Сценарист мужчина? [yes/no]");
+            lineIn = scanner.nextLine().toLowerCase();
+            if (lineIn.equals("yes")) {
+                return true;
+            } else if (lineIn.equals("no")) {
+                return false;
+            } else {
+                System.out.println("строка не может быть пустой.");
+                continue;
+            }
+        } while (true);
     }
 
     public void startUpdateCommand(String argIn) { //Татьяна// метод недоделан
@@ -160,7 +233,7 @@ public class Manager {
 
     public void startRemoveKeyCommand(String argIn) {//Татьяна
 
-        if (!Utils.isInt(argIn) || argIn == null) {// блок работает нормально
+        if (!Utils.isInt(argIn) || argIn == null) {
             System.out.println("Некорректный аргумент");
             return;
         }
@@ -203,7 +276,8 @@ public class Manager {
         System.out.println("Программа завершена. До свидания!");
     }
 
-    public void startRemoveGreaterCommand(String argIn) {//Дарья
+    public void startRemoveGreaterCommand(String argIn) {
+        //Дарья
 
         if (!Utils.isLong(argIn)) {
             System.out.println("Указанно некорректное значение");
@@ -214,7 +288,7 @@ public class Manager {
         Set<Long> set = new HashSet<>();
 
         for (Long idMap : movieMap.keySet()) {
-            if (idMap > idIn) {
+            if (idMap > idIn){
                 set.add(idMap);
             }
         }
