@@ -72,12 +72,19 @@ public class Manager {
 
     public void startInfoCommand() {
         //Екатерина
-        System.out.println("Информация о Коллекция: ");
+        System.out.println("Информация о Коллекци: " + this.movieMap.size());
+
+
+
+
     }
 
     public void startShowCommand() {
         //Екатерина
-        System.out.println("Все элементы коллекции.");
+        System.out.println("Все элементы:");
+        for (Movie movie : this.movieMap.values()) {
+            System.out.println(movie);
+        }
     }
 
     public void startInsertCommand() {
