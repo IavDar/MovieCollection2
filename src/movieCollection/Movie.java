@@ -19,7 +19,7 @@ public class Movie implements Comparable<Movie> {
         Movie.counter++;
         this.id = 918291822 + Movie.counter; //автоматическая генерация id
     }
-// @Tatjana геттеры-сеттеры сгенерированы автоматически, по ходу может понадобиться сделать проверки на null и пр.
+
     public long getId() {
         return id;
     }
@@ -58,15 +58,18 @@ public class Movie implements Comparable<Movie> {
     public void setScreenwriter(Person screenwriter) {
         this.screenwriter = screenwriter;
     }
+    public static int getCounter() {
+        return counter;
+    }
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return  "Movie " +
                 "id=" + id +
                 ", movieName='" + movieName + '\'' +
                 ", genre=" + genre +
                 ", screenwriter=" + screenwriter +
-                '}';
+                "\n";
     }
 
     @Override
@@ -83,15 +86,6 @@ public class Movie implements Comparable<Movie> {
         return Objects.hash(getId(), getMovieName(), getGenre(), getScreenwriter());
     }
 
-//    @Override
-//    public int compareTo(Movie o) {
-//        if (this.getId() < o.getId()) {
-//            return -1;
-//        } else if (this.getId() > o.getId()){
-//            return 1;
-//        } else
-//        return 0;
-//    }
 
     @Override
     public int compareTo(Movie o) {// переопределяем метод, приводим результат к int

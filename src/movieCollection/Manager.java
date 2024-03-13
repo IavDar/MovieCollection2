@@ -1,57 +1,64 @@
 package movieCollection;
 
-
-
 import java.util.*;
-
 
 public class Manager {
     Scanner scanner;
     private Map<Long, Movie> movieMap;
 
-
-
-    public void setMovieMap(Map<Long, Movie> movieMap) { //нам точно нужен сеттер?
+    public void setMovieMap(Map<Long, Movie> movieMap) { //Дарья
         this.movieMap = movieMap;
     }
 
-    public Manager() {
+    public Manager() {// конструктор
         scanner = new Scanner(System.in);
-        movieMap = new HashMap<>();
+        this.movieMap = new HashMap<>();
     }
 
-    public void addMovie(Movie movie){ // метод для добавления фильмов в HashMap
+    public void addMovie(Movie movie) { // метод для добавления фильмов в HashMap
         movieMap.put(movie.getId(), movie);
     }
 
     Person person1 = new Person("Инна Веткина", false);
     Person person2 = new Person("Евгений Велтистов", true);
-    Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION , person1);
-    Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE , person2);
-
+    Person person3 = new Person("Люк Бессон", true);
+    Person person4 = new Person("David Fincher", true);
+    Person person5 = new Person("Ryan Murphy", true);
+    Person person6 = new Person("Fatih Akin", true);
+    Person person7 = new Person("Tim Burton", true);
+    Person person8 = new Person("Александр Войтинский", true);
+    Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION, person1);
+    Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE, person2);
+    Movie movie3 = new Movie("Люси", MovieGenre.ACTION, person3);
+    Movie movie4 = new Movie("Gone Girl", MovieGenre.TRAGEDY, person4);
+    Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
+    Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
+    Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
+    Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
+    Movie movie9 = new Movie("По щучъему велению1.", MovieGenre.FANTASY, person8);
+    // помещаем их в массив
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
-        // (вроде работает, текст можно править) @Tatjana
         System.out.println(
                 "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n\n" +
-                "help\n" +
-                "info\n" +
-                "show\n" +
-                "insert\n" +
-                "update {id}\n" +
-                "remove_key {id}\n" +
-                "clear\n" +
-                "exit\n" +
-                "remove_greater {fieldValue}\n" +
-                "remove_lower {fieldValue}\n" +
-                "count_less_than_genre {genre}\n ");
+                        "help\n" +
+                        "info\n" +
+                        "show\n" +
+                        "insert\n" +
+                        "update {id}\n" +
+                        "remove_key {id}\n" +
+                        "clear\n" +
+                        "exit\n" +
+                        "remove_greater {fieldValue}\n" +
+                        "remove_lower {fieldValue}\n" +
+                        "count_less_than_genre {genre}\n ");
         System.out.print("Введите выбранную команду: ");
 
     }
 
-    public void startHelpCommand() {// Help //Екатерина
+    public void startHelpCommand() {//Екатерина
         System.out.println(
-                        "info : вывести информацию о коллекции\n" +
+                "info : вывести информацию о коллекции\n" +
                         "show : вывести все элементы коллекции\n" +
                         "insert: добавить новый элемент \n" +
                         "update {id} : обновить значение элемента коллекции, id которого равен заданному\n" +
@@ -61,11 +68,10 @@ public class Manager {
                         "remove_greater {fieldValue} : удалить из коллекции все элементы, ключ которых превышает заданный\n" +
                         "remove_lower {fieldValue} : удалить из коллекции все элементы, ключ которых меньше, чем заданный\n" +
                         "count_less_than_genre {genre}: вывести количество элементов, значение поля genre которых меньше заданного\n");
-        System.out.print("Введите выбранную команду: ");
     }
 
     public void startInfoCommand() {
-        //Екатерина (про дату инициализации Карлен сказал, можно не делать, объяснение про метод в видео с 32 минуты)
+        //Екатерина
         System.out.println("Информация о Коллекция: ");
     }
 
@@ -80,15 +86,86 @@ public class Manager {
         System.out.println("insert");
     }
 
-    public void startUpdateCommand(String argIn) {
-        //Татьяна
-        System.out.println("update");
+    public void startUpdateCommand(String argIn) { //Татьяна// метод недоделан
+
+        if (!Utils.isInt(argIn) || argIn == null) {
+            System.out.println("Неверное значение id");
+            return;
+        }
+        long idValue = Long.parseLong(argIn);
+
+        Movie mov = this.movieMap.get(idValue);
+        if (mov == null) {
+            System.out.println("Такого id нет");
+            return;
+        }
+
+//         нижележащий код должен быть в цикле и должно повторяться если указанно что-то некорректно
+//         (вместо return должен быть continue или аналогичная логика)
+        UPPER:
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Доступные поля для изменения:");
+            for (MutableField field : MutableField.values()) {
+                System.out.println(field);
+            }
+            System.out.print("Для отмены команды введите [SKIP]");
+            System.out.print("Введите ответ: ");
+            String answer = scanner.nextLine();
+
+            if (!Utils.isEnum(answer, MutableField.class)) {
+                System.out.println("Указано некорректное поле для изменения");
+                continue;
+            }
+            MutableField answerValue = MutableField.valueOf(answer);
+
+            System.out.print("Введите новое значение: ");
+            System.out.println("Возможные значения длв поля GENRE: " + Arrays.toString(MovieGenre.values()));
+            String newValue = scanner.nextLine();
+
+            switch (answerValue) {
+                case MOVIENAME:
+                    if (newValue.isEmpty()) {
+                        System.out.println("Указанно некорректное новое значение");
+                        continue;
+                    }
+                    mov.setMovieName(newValue);
+                    break;
+
+                case GENRE:
+                    if (!Utils.isEnum(newValue, MovieGenre.class)) {
+                        System.out.println("Указанно некорректное новое значение");
+                        continue;
+                    }
+
+                    MovieGenre genre = MovieGenre.valueOf(newValue);
+                    mov.setGenre(genre);
+                    break;
+
+                default:
+                    System.out.println("Чтобы сохранить изменения, наберите [ok]");
+                    if (newValue.equalsIgnoreCase("ok")) {
+                        break UPPER;
+                    }
+            }
+        }
     }
 
     public void startRemoveKeyCommand(String argIn) {//Татьяна
 
-        System.out.println("remove");
+        if (!Utils.isInt(argIn) || argIn == null) {// блок работает нормально
+            System.out.println("Некорректный аргумент");
+            return;
+        }
+        long idValue = Long.parseLong(argIn); // преобразование String в long "1982912981" -> 1982912981
+        if (movieMap.containsKey(idValue)) {
+            movieMap.remove(idValue);
+            System.out.println("Элемент с id " + idValue + " успешно удалён");
+        } else
+
+            System.out.println("Такого элемента нет в списке");
     }
+
 
     public void startClearCommand() {//Татьяна
 
@@ -111,17 +188,15 @@ public class Manager {
                 continue;
             }
 
-        } while (true);// ??? условие цикла
+        } while (true);
 
     }
 
-    public void startExitCommand() {
-        //Татьяна
+    public void startExitCommand() {//Татьяна
         System.out.println("Программа завершена. До свидания!");
     }
 
-    public void startRemoveGreaterCommand(String argIn) {
-        //Дарья
+    public void startRemoveGreaterCommand(String argIn) {//Дарья
 
         if (!Utils.isLong(argIn)) {
             System.out.println("Указанно некорректное значение");
@@ -132,7 +207,7 @@ public class Manager {
         Set<Long> set = new HashSet<>();
 
         for (Long idMap : movieMap.keySet()) {
-            if (idMap > idIn){
+            if (idMap > idIn) {
                 set.add(idMap);
             }
         }
@@ -145,8 +220,7 @@ public class Manager {
         }
     }
 
-    public void startRemoveLowerCommand(String argIn) {
-        //Дарья
+    public void startRemoveLowerCommand(String argIn) {//Дарья
 
         if (!Utils.isLong(argIn)) {
             System.out.println("Указанно некорректное значение");
@@ -157,7 +231,7 @@ public class Manager {
         Set<Long> set = new HashSet<>();
 
         for (Long idMap : movieMap.keySet()) {
-            if (idMap < idIn){
+            if (idMap < idIn) {
                 set.add(idMap);
             }
         }
@@ -171,8 +245,7 @@ public class Manager {
 
     }
 
-    public void startCountLessThanGenreCommand(String argIn) {
-        //Дарья
+    public void startCountLessThanGenreCommand(String argIn) { //Дарья
 
         if (!Utils.isEnum(argIn, MovieGenre.class)) {
             System.out.println("Указанно некорректное значение");
@@ -186,10 +259,9 @@ public class Manager {
 
 
             if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
-                counter = counter +1;
+                counter = counter + 1;
             }
         }
-
 
         System.out.println("Количество элементов: " + counter);
     }

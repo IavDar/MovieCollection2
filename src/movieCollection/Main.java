@@ -4,17 +4,18 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class Main {
     public static void main(String[] args) {
+        //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
+        Map<Long, Movie> movieMap = new HashMap<>();
+        //создан объект класса Manager
+        Manager manager = new Manager();
 
-        Map<Long, Movie> movieMap = new HashMap<>();// коллекция фильмов.
-        // @Tatjana пока выбрала для ключа - id, для значения - объекты класса Movie (как в задании)
-        Manager manager = new Manager(); // через дефолтный конструктор создн объект класса Manager, чтобы вызывать на нем методы
-
-// создаём объекты Person и Movie; помещаем их в массив;  помещаем в HashMap; обеспечиваем сортировку;
+        // создаём объекты Person и Movie;
         Person person1 = new Person("Инна Веткина", false);
         Person person2 = new Person("Евгений Велтистов", true);
         Person person3 = new Person("Люк Бессон", true);
@@ -31,15 +32,8 @@ public class Main {
         Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
         Movie movie7 = new Movie("Die Insel der besonderen Kinder",MovieGenre.FANTASY, person7);
         Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
-        Movie[] movies = new Movie[8];
-        movies[0] = movie1;
-        movies[1] = movie2;
-        movies[2] = movie3;
-        movies[3] = movie4;
-        movies[4] = movie5;
-        movies[5] = movie6;
-        movies[6] = movie7;
-        movies[7] = movie8;
+        Movie movie9 = new Movie("По щучъему велению1.", MovieGenre.FANTASY, person8);
+
         movieMap.put(movie1.getId(), movie1);
         movieMap.put(movie2.getId(), movie2);
         movieMap.put(movie3.getId(), movie3);
@@ -48,21 +42,22 @@ public class Main {
         movieMap.put(movie6.getId(), movie6);
         movieMap.put(movie7.getId(), movie7);
         movieMap.put(movie8.getId(), movie8);
+        movieMap.put(movie9.getId(), movie9);
 
-        for (Movie movie : movies){// добавление фильмов в HashMap с помощью метода из Manager
-        manager.addMovie(movie);
-        }
-        System.out.println(movieMap);
-        //Collections.sort(movieMap); // нужна сортировка по ключу HashMap
+        // для наглядности выводим HashMap на печать
+        System.out.println("Коллекция фильмов:\n " + movieMap);
 
+        manager.setMovieMap(movieMap);// Дарья
+
+        // сортировка HashMap по ключу
+        List<Movie> listValues = new ArrayList<>(movieMap.values());
+        Collections.sort(listValues);
+        // для наглядности выводим отсортированный список на печать
+        System.out.println("Коллекция отсортирована:\n " + listValues + "\n ");
+
+        //начало работы с пользовательским вводом
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
-
-       
-        manager.setMovieMap(movieMap);// проверить???
-
-
-        System.out.println("Добавили в HashMap: \n" + movieMap + "\n " );
 
         System.out.println("Вас приветствует MovieCollection!\n");
 
@@ -89,7 +84,7 @@ public class Main {
                     break;
 
                 case "help":
-                   // manager.startHelpCommand();
+                    manager.startHelpCommand();
                     break;
 
                 case "info":
@@ -130,12 +125,10 @@ public class Main {
 
                 default:
                     System.out.println("Вы ввели неверную команду. Попробуйте ещё раз: ");
-                    continue; //??? надо проверить
+                    continue;
             }
 
         } while (!usersLine.equals("exit"));
-
-
     }
 }
 
