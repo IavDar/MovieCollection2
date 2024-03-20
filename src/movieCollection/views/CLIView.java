@@ -23,13 +23,13 @@ public class CLIView {
         Person person6 = new Person("Fatih Akin", true);
         Person person7 = new Person("Tim Burton", true);
         Person person8 = new Person("Александр Войтинский", true);
-        Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION , person1);
-        Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE , person2);
-        Movie movie3 = new Movie("Люси",MovieGenre.ACTION, person3);
-        Movie movie4 = new Movie("Gone Girl",MovieGenre.TRAGEDY, person4);
+        Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION, person1);
+        Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE, person2);
+        Movie movie3 = new Movie("Люси", MovieGenre.ACTION, person3);
+        Movie movie4 = new Movie("Gone Girl", MovieGenre.TRAGEDY, person4);
         Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
         Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
-        Movie movie7 = new Movie("Die Insel der besonderen Kinder",MovieGenre.FANTASY, person7);
+        Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
         Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
 
         movieMap.put(movie1.getId(), movie1);
@@ -122,14 +122,12 @@ public class CLIView {
 
                 default:
                     System.out.println("Вы ввели неверную команду. Попробуйте ещё раз: ");
-                    continue;
             }
 
         } while (!usersLine.equals("exit"));
     }
 
-    void startCountLessThanGenreView(String argIn)
-    {
+    void startCountLessThanGenreView(String argIn) {
         //1. Ввод и проверка данных
         if (!Utils.isEnum(argIn, MovieGenre.class)) {
             System.out.println("Указанно некорректное значение");
