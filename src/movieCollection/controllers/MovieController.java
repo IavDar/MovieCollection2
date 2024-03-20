@@ -1,8 +1,10 @@
-package movieCollection;
+package movieCollection.controllers;
+
+import movieCollection.*;
 
 import java.util.*;
 
-public class Manager {
+public class MovieController {
     Scanner scanner;
     private Map<Long, Movie> movieMap;
 
@@ -10,7 +12,7 @@ public class Manager {
         this.movieMap = movieMap;
     }
 
-    public Manager() {// конструктор
+    public MovieController() {// конструктор
         scanner = new Scanner(System.in);
         this.movieMap = new HashMap<>();
     }
@@ -326,28 +328,16 @@ public class Manager {
 
     }
 
-    public void startCountLessThanGenreCommand(String argIn) { //Дарья
-
-        if (!Utils.isEnum(argIn, MovieGenre.class)) {
-            System.out.println("Указанно некорректное значение");
-            return;
-        }
-
-        MovieGenre targetGenre = MovieGenre.valueOf(argIn);
+    public int startCountLessThanGenreCommand(MovieGenre targetGenre) { //Дарья
 
         int counter = 0;
         for (Movie movie : movieMap.values()) {
-
 
             if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
                 counter = counter + 1;
             }
         }
 
-        System.out.println("Количество элементов: " + counter);
+        return counter;
     }
-
 }
-
-
-
