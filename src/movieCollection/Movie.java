@@ -92,5 +92,19 @@ public class Movie implements Comparable<Movie> {
         return (int)(this.getId() - o.getId());
     }
 
+    // валидация movieName (проверка на пограничные значения из задания)
+    public static boolean validateMovieName(String movieName){ // Татьяна
+        if (movieName == null){ // Поле не может быть null
+            return false;
+        }
+        if (movieName.isEmpty()){ // Строка не может быть пустой
+            return false;
+        }
+        return true;
+    }
+
+
+
+
 }
 
