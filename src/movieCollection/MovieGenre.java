@@ -7,4 +7,6 @@ public enum MovieGenre {
     HORROR,
     FANTASY;
 
+    // изменения
+
 }
