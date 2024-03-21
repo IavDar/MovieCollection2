@@ -1,4 +1,4 @@
-package movieCollection;
+package movieCollection.models;
 
 public enum MovieGenre {
     ACTION,

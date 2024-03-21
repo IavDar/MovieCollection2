@@ -1,4 +1,4 @@
-package movieCollection;
+package movieCollection.models;
 
 import java.util.Objects;
 
