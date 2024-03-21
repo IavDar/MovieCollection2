@@ -36,7 +36,7 @@ public class Movie implements Comparable<Movie> {
 
         if (movieName.equals(null)) {
             System.out.println("Поле не может быть NULL");
-        } else if (movieName.equals("")) {
+        } else if (movieName.isEmpty()) {
             System.out.println("Строка не может быть пустой");
         } else {
             this.movieName = movieName;

@@ -39,7 +39,6 @@ public class MovieController {
     Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
 
 
-
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         System.out.println(
                 "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n\n" +
@@ -102,9 +101,8 @@ public class MovieController {
         do {
             System.out.println("Задайте название фильма: ");
             movieName = scanner.nextLine();
-            if (movieName.equals("")) {
+            if (movieName.isEmpty()) {
                 System.out.println("Строка не может быть пустой");
-                continue;
             } else {
                 return movieName;
             }
@@ -142,9 +140,8 @@ public class MovieController {
         do {
             System.out.println("Задайте имя сценариста: ");
             personName = scanner.nextLine();
-            if (personName.equals("")) {
+            if (personName.isEmpty()) {
                 System.out.println("Строка не может быть пустой.");
-                continue;
             } else {
                 return personName;
             }
@@ -163,7 +160,6 @@ public class MovieController {
                 return false;
             } else {
                 System.out.println("строка не может быть пустой.");
-                continue;
             }
         } while (true);
     }
@@ -267,7 +263,6 @@ public class MovieController {
 
             } else {
                 System.out.println("Вы ввели неверное значение. Попробуйте ещё раз. ");
-                continue;
             }
 
         } while (true);
@@ -290,7 +285,7 @@ public class MovieController {
         Set<Long> set = new HashSet<>();
 
         for (Long idMap : movieMap.keySet()) {
-            if (idMap > idIn){
+            if (idMap > idIn) {
                 set.add(idMap);
             }
         }
