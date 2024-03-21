@@ -2,6 +2,9 @@ package movieCollection.views;
 
 import movieCollection.*;
 import movieCollection.controllers.MovieController;
+import movieCollection.models.Movie;
+import movieCollection.models.MovieGenre;
+import movieCollection.models.Person;
 
 import java.util.*;
 

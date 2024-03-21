@@ -1,4 +1,4 @@
-package movieCollection;
+package movieCollection.models;
 
 public enum MovieGenre {
     ACTION,
@@ -6,5 +6,7 @@ public enum MovieGenre {
     TRAGEDY,
     HORROR,
     FANTASY;
+
+    // изменения
 
 }

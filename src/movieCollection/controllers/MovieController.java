@@ -1,6 +1,9 @@
 package movieCollection.controllers;
 
 import movieCollection.*;
+import movieCollection.models.Movie;
+import movieCollection.models.MovieGenre;
+import movieCollection.models.Person;
 
 import java.util.*;
 
