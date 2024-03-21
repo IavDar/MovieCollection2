@@ -16,7 +16,7 @@ public class Main {
         CLIView view = new CLIView();
         view.run();
 
-        // изменения
+        
 
     }
 }
