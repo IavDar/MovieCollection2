@@ -114,7 +114,6 @@ public class MovieController {
 
     private MovieGenre addMovieGenre() {
         String lineIn;
-        MovieGenre movieGenre = null;
         do {
             System.out.println("Задайте жанр: ");
             System.out.println(Arrays.toString(MovieGenre.values()));
@@ -167,72 +166,12 @@ public class MovieController {
         } while (true);
     }
 
-    public void startUpdateCommand(String argIn) { //Татьяна// метод недоделан
 
-        if (!Utils.isInt(argIn) || argIn == null) {
-            System.out.println("Неверное значение id");
-            return;
-        }
-        long idValue = Long.parseLong(argIn);
+    public void startUpdateCommand(String argIn) { // Акмур
 
-        Movie mov = repo.getMovieMap().get(idValue);
-        if (mov == null) {
-            System.out.println("Такого id нет");
-            return;
-        }
-
-//         нижележащий код должен быть в цикле и должно повторяться если указанно что-то некорректно
-//         (вместо return должен быть continue или аналогичная логика)
-        UPPER:
-        while (true) {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Доступные поля для изменения:");
-            for (MutableField field : MutableField.values()) {
-                System.out.println(field);
-            }
-            System.out.print("Для отмены команды введите [SKIP]");
-            System.out.print("Введите ответ: ");
-            String answer = scanner.nextLine();
-
-            if (!Utils.isEnum(answer, MutableField.class)) {
-                System.out.println("Указано некорректное поле для изменения");
-                continue;
-            }
-            MutableField answerValue = MutableField.valueOf(answer);
-
-            System.out.print("Введите новое значение: ");
-            System.out.println("Возможные значения длв поля GENRE: " + Arrays.toString(MovieGenre.values()));
-            String newValue = scanner.nextLine();
-
-            switch (answerValue) {
-                case MOVIENAME:
-                    if (newValue.isEmpty()) {
-                        System.out.println("Указанно некорректное новое значение");
-                        continue;
-                    }
-                    mov.setMovieName(newValue);
-                    break;
-
-                case GENRE:
-                    if (!Utils.isEnum(newValue, MovieGenre.class)) {
-                        System.out.println("Указанно некорректное новое значение");
-                        continue;
-                    }
-
-                    MovieGenre genre = MovieGenre.valueOf(newValue);
-                    mov.setGenre(genre);
-                    break;
-
-                default:
-                    System.out.println("Чтобы сохранить изменения, наберите [ok]");
-                    if (newValue.equalsIgnoreCase("ok")) {
-                        break UPPER;
-                    }
-            }
-        }
     }
 
-    public void startRemoveKeyCommand(String argIn) {//Татьяна
+    public void startRemoveKeyCommand(String argIn) { // Татьяна
 
         if (!Utils.isInt(argIn) || argIn == null) {
             System.out.println("Некорректный аргумент");
@@ -248,7 +187,7 @@ public class MovieController {
     }
 
 
-    public void startClearCommand() {//Татьяна
+    public void startClearCommand() { // Татьяна
 
         do {
             System.out.print("Вы действительно хотите удалить все элементы из списка? [yes/no] : ");
@@ -272,7 +211,7 @@ public class MovieController {
 
     }
 
-    public void startExitCommand() {//Татьяна
+    public void startExitCommand() { // Татьяна
         System.out.println("Программа завершена. До свидания!");
     }
 
@@ -301,7 +240,7 @@ public class MovieController {
         }
     }
 
-    public void startRemoveLowerCommand(String argIn) {//Дарья
+    public void startRemoveLowerCommand(String argIn) { // Дарья
 
         if (!Utils.isLong(argIn)) {
             System.out.println("Указанно некорректное значение");
@@ -326,7 +265,7 @@ public class MovieController {
 
     }
 
-    public int startCountLessThanGenreCommand(MovieGenre targetGenre) { //Дарья
+    public int startCountLessThanGenreCommand(MovieGenre targetGenre) { // Дарья
 
         int counter = 0;
         for (Movie movie : repo.getMovieMap().values()) {
