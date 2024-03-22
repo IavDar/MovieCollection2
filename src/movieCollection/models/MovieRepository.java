@@ -30,4 +30,8 @@ public class MovieRepository {
     public Movie getById(Long id) {
         return movieMap.get(id);
     }
+
+    public int size() {
+      return this.movieMap.size();
+    }
 }
