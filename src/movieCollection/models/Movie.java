@@ -13,10 +13,7 @@ public class Movie implements Comparable<Movie> {
     private static int counter = 0;
 
     public Movie(String movieName, MovieGenre genre, Person screenwriter) {
-        if(!Movie.validateMovieName(movieName)){
-            throw new RuntimeException("Некорректное значение");
-        }
-        this.movieName = movieName;
+        this.setMovieName(movieName);
         this.genre = genre;
         this.screenwriter = screenwriter;
         Movie.counter++;
@@ -36,6 +33,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public void setMovieName(String movieName) {
+        if(!Movie.validateMovieName(movieName)){
+            throw new RuntimeException("Некорректное значение");
+        }
         this.movieName = movieName;
     }
 

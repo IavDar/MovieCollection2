@@ -49,23 +49,7 @@ public class MovieController {
     Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
 
 
-    public void startIntro() { //начальное сообщение с приглашением к выбору команды
-        System.out.println(
-                "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n\n" +
-                        "help\n" +
-                        "info\n" +
-                        "show\n" +
-                        "insert\n" +
-                        "update {id}\n" +
-                        "remove_key {id}\n" +
-                        "clear\n" +
-                        "exit\n" +
-                        "remove_greater {fieldValue}\n" +
-                        "remove_lower {fieldValue}\n" +
-                        "count_less_than_genre {genre}\n ");
-        System.out.print("Введите выбранную команду: ");
 
-    }
 
     public void startHelpCommand() {//Екатерина
         System.out.println(
@@ -213,6 +197,7 @@ public class MovieController {
 
     public void startExitCommand() { // Татьяна
         System.out.println("Программа завершена. До свидания!");
+        System.exit(0);
     }
 
     public void startRemoveGreaterCommand(String argIn) {
