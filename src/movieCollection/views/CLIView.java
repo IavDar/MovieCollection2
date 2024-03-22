@@ -13,7 +13,7 @@ public class CLIView {
 
     public void run() {
         //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
-        Map<Long, Movie> movieMap = new HashMap<>();
+        HashMap<Long, Movie> movieMap = new HashMap<>();
         //создан объект класса Manager
         movieController = new MovieController();
 
@@ -92,7 +92,7 @@ public class CLIView {
                     break;
 
                 case "show":
-                    movieController.startShowCommand();
+                    this.startShowCommand();
                     break;
 
                 case "insert":
@@ -120,7 +120,7 @@ public class CLIView {
                     break;
 
                 case "count_less_than_genre":
-                    startCountLessThanGenreView(argIn);
+                    this.startCountLessThanGenreView(argIn);
                     break;
 
                 default:
@@ -128,6 +128,14 @@ public class CLIView {
             }
 
         } while (!usersLine.equals("exit"));
+    }
+
+    public void startShowCommand() {
+        System.out.println("Все элементы:");
+        Collection<Movie> movies = movieController.showCommand();
+        for (Movie movie : movies) {
+            System.out.println(movie);
+        }
     }
 
     void startCountLessThanGenreView(String argIn) {
