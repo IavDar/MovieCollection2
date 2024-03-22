@@ -13,6 +13,9 @@ public class Movie implements Comparable<Movie> {
     private static int counter = 0;
 
     public Movie(String movieName, MovieGenre genre, Person screenwriter) {
+        if(!Movie.validateMovieName(movieName)){
+            throw new RuntimeException("Некорректное значение");
+        }
         this.movieName = movieName;
         this.genre = genre;
         this.screenwriter = screenwriter;
@@ -32,15 +35,8 @@ public class Movie implements Comparable<Movie> {
         return movieName;
     }
 
-    public void setMovieName(String movieName) { // проверка movieName:
-
-        if (movieName.equals(null)) {
-            System.out.println("Поле не может быть NULL");
-        } else if (movieName.isEmpty()) {
-            System.out.println("Строка не может быть пустой");
-        } else {
-            this.movieName = movieName;
-        }
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
     }
 
     public MovieGenre getGenre() {
@@ -88,12 +84,14 @@ public class Movie implements Comparable<Movie> {
 
 
     @Override
-    public int compareTo(Movie o) {// переопределяем метод, приводим результат к int
+    public int compareTo(Movie o) { // переопределяем метод, приводим результат к int
         return (int)(this.getId() - o.getId());
     }
 
     // валидация movieName (проверка на пограничные значения из задания)
-    public static boolean validateMovieName(String movieName){ // Татьяна
+    // Поле не может быть null, Строка не может быть пустой
+    // Татьяна
+    public static boolean validateMovieName(String movieName) { // Татьяна
         if (movieName == null){ // Поле не может быть null
             return false;
         }
@@ -102,9 +100,11 @@ public class Movie implements Comparable<Movie> {
         }
         return true;
     }
-
-
-
-
+    // валидация id
+    // Значение поля должно быть больше 0
+    // Татьяна
+    public static boolean validateId(Long id) {
+        return (id >= 0);
+    }
 }
 

@@ -7,7 +7,13 @@ public class Person {
     private boolean isMan; //Поле не может быть null
 
     public Person(String name, boolean isMan) {
+        if(!Person.validatePersonName(name)){
+            throw new RuntimeException("Некорректное значение");
+        }
         this.name = name;
+        if(!Person.validateIsMan(isMan)){
+            throw new RuntimeException("Некорректное значение");
+        }
         this.isMan = isMan;
     }
 
@@ -19,17 +25,13 @@ public class Person {
                 '}';
     }
 
-    // @Tatjana геттеры-сеттеры сгенерированы автоматически, по ходу может понадобиться сделать проверки на null и пр.
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        if (this.name.equals(null)) {
-            System.out.println("Поле не может быть пустым");
-        } else {
-            this.name = name;
-        }
+        this.name = name;
     }
 
     public boolean IsMan() {
@@ -52,4 +54,28 @@ public class Person {
     public int hashCode() {
         return Objects.hash(getName(), isMan);
     }
+
+    // валидация personName (проверка на пограничные значения из задания)
+    // Поле не может быть null, Строка не может быть пустой
+    // Татьяна
+    public static boolean validatePersonName(String name){
+        if (name == null){ // Поле не может быть null
+            return false;
+        }
+        if (name.isEmpty()){ // Строка не может быть пустой
+            return false;
+        }
+        return true;
+    }
+
+    // валидация isMan (проверка на пограничные значения из задания)
+    // Поле не может быть null
+    // Татьяна
+    public static boolean validateIsMan(Boolean isMan){
+        if (isMan == null){
+            return false;
+        }
+            return true;
+    }
+
 }
