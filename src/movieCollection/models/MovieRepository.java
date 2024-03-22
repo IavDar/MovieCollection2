@@ -8,7 +8,7 @@ public class MovieRepository {
     private HashMap<Long, Movie> movieMap;
 
     public MovieRepository() {
-        movieMap = new HashMap<>();
+        this.movieMap = new HashMap<>();
     }
 
     public HashMap<Long, Movie> getMovieMap() {
@@ -25,5 +25,13 @@ public class MovieRepository {
 
     public void add(Movie movie){
         movieMap.put(movie.getId(), movie);
+    }
+
+    public Movie getById(Long id) {
+        return movieMap.get(id);
+    }
+
+    public int size() {
+      return this.movieMap.size();
     }
 }

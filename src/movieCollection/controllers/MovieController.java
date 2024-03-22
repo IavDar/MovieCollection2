@@ -1,34 +1,45 @@
 package movieCollection.controllers;
 
 import movieCollection.*;
-import movieCollection.models.Movie;
-import movieCollection.models.MovieGenre;
-import movieCollection.models.MovieRepository;
-import movieCollection.models.Person;
+import movieCollection.models.*;
 
 import java.util.*;
 
 public class MovieController {
-    MovieRepository repo;
+
+    MovieRepository movieRepo;
+    CSVFileRepository fileRepo;
 
     public Collection<Movie> showCommand() {
-        return repo.getValues();
+        return movieRepo.getValues();
     }
     Scanner scanner;
    // private Map<Long, Movie> movieMap;
 
     public void setMovieMap(HashMap<Long, Movie> movieMap) { //Дарья
-        repo.setMovieMap(movieMap);
+        movieRepo.setMovieMap(movieMap);
     }
 
-    public MovieController() {// конструктор
+    public MovieController(String filepath) {// конструктор
         scanner = new Scanner(System.in);
-        repo = new MovieRepository();
+        movieRepo = new MovieRepository();
+        fileRepo = new CSVFileRepository(filepath);
+
+
         //repo.getMovieMap() = new HashMap<>();
     }
 
+    public void handleSaveCommand(){  // сохранить фильмы в файл
+
+    }
+
+    public void loadMovies(){  // загрузить фильмы из файла
+
+
+    }
+
     public void addMovie(Movie movie) { // метод для добавления фильмов в HashMap. Не работает ((
-        repo.getMovieMap().put(movie.getId(), movie);
+        movieRepo.getMovieMap().put(movie.getId(), movie);
     }
 
     Person person1 = new Person("Инна Веткина", false);
@@ -67,7 +78,7 @@ public class MovieController {
 
     public void startInfoCommand() {//Екатерина
 
-        System.out.println("Коллекция содержит: " + repo.getMovieMap().size() + " элементов\n");
+        System.out.println("Коллекция содержит: " + movieRepo.getMovieMap().size() + " элементов\n");
     }
 
 
@@ -77,7 +88,7 @@ public class MovieController {
 
         Person person = new Person(addPersonName(), addPersonGender());
         Movie movie1 = new Movie(addMovieName(), addMovieGenre(), person);
-        repo.getMovieMap().put(movie1.getId(), movie1);
+        movieRepo.getMovieMap().put(movie1.getId(), movie1);
 
         System.out.println("Фильм добавлен в коллекцию");
     }
@@ -162,8 +173,8 @@ public class MovieController {
             return;
         }
         long idValue = Long.parseLong(argIn); // преобразование String в long "1982912981" -> 1982912981
-        if (repo.getMovieMap().containsKey(idValue)) {
-            repo.getMovieMap().remove(idValue);
+        if (movieRepo.getMovieMap().containsKey(idValue)) {
+            movieRepo.getMovieMap().remove(idValue);
             System.out.println("Элемент с id " + idValue + " успешно удалён");
         } else
 
@@ -178,7 +189,7 @@ public class MovieController {
             scanner = new Scanner(System.in);
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
-                Map<Long, Movie> movieMap1 = repo.getMovieMap();// пока сделала на всякий случай с копией
+                Map<Long, Movie> movieMap1 = movieRepo.getMovieMap();// пока сделала на всякий случай с копией
                 movieMap1.clear();
                 System.out.println("Список очищен");
                 break;
@@ -211,7 +222,7 @@ public class MovieController {
         Long idIn = Long.valueOf(argIn);
         Set<Long> set = new HashSet<>();
 
-        for (Long idMap : repo.getMovieMap().keySet()) {
+        for (Long idMap : movieRepo.getMovieMap().keySet()) {
             if (idMap > idIn) {
                 set.add(idMap);
             }
@@ -219,9 +230,9 @@ public class MovieController {
 
         for (Long id : set) {
 
-            System.out.println("Удалили " + " " + repo.getMovieMap().get(id));
+            System.out.println("Удалили " + " " + movieRepo.getMovieMap().get(id));
 
-            repo.getMovieMap().remove(id);
+            movieRepo.getMovieMap().remove(id);
         }
     }
 
@@ -235,7 +246,7 @@ public class MovieController {
         Long idIn = Long.valueOf(argIn);
         Set<Long> set = new HashSet<>();
 
-        for (Long idMap : repo.getMovieMap().keySet()) {
+        for (Long idMap : movieRepo.getMovieMap().keySet()) {
             if (idMap < idIn) {
                 set.add(idMap);
             }
@@ -243,9 +254,9 @@ public class MovieController {
 
         for (Long id : set) {
 
-            System.out.println("Удалили " + " " + repo.getMovieMap().get(id));
+            System.out.println("Удалили " + " " + movieRepo.getMovieMap().get(id));
 
-            repo.getMovieMap().remove(id);
+            movieRepo.getMovieMap().remove(id);
         }
 
     }
@@ -253,7 +264,7 @@ public class MovieController {
     public int startCountLessThanGenreCommand(MovieGenre targetGenre) { // Дарья
 
         int counter = 0;
-        for (Movie movie : repo.getMovieMap().values()) {
+        for (Movie movie : movieRepo.getMovieMap().values()) {
 
             if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
                 counter = counter + 1;

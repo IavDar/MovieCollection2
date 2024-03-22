@@ -7,15 +7,15 @@ public class Main {
 
         CLIView view = new CLIView();
 
-       while (true){
+// пришлось убрать while (true), т.к. получался бесконечный цикл
            try {
-               view.run();
+               view.run(args[0]);
            } catch (Exception e){
                System.out.println(e.getMessage());
            }
        }
 
-    }
+
 }
 
 
