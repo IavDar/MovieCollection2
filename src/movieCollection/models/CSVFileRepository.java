@@ -7,15 +7,16 @@ import java.util.Scanner;
 public class CSVFileRepository {
     private String filepath;
 
+
     public CSVFileRepository(String filepath) {
         this.filepath = filepath;
     }
+    public void save(Collection<Movie> data) {
+        // записывает данные элеменов коллекции в файл в формате CSV
+        
+    }
 
-//    public void save(Collection<Movie> data) {
-//        // записывает данные элеменов
-//        // коллекции в файл
-//        // в формате CSV
-//
+
 //        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filepath))) {
 //            for (Movie movie : data) {
 //                String line = movie.getCSVLine();

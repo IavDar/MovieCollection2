@@ -12,12 +12,12 @@ public class CLIView {
     MovieController movieController;
     Scanner scanner;
 
-public CLIView(){
-    movieController = new MovieController();
-    scanner = new Scanner(System.in);
+    public void run(String filepath) {
 
-}
-    public void run() {
+        movieController = new MovieController(filepath);
+        movieController.loadMovies();
+
+        scanner = new Scanner(System.in);
         //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
         HashMap<Long, Movie> movieMap = new HashMap<>();
 
