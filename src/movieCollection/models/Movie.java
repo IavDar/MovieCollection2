@@ -12,6 +12,7 @@ public class Movie implements Comparable<Movie> {
 
     private static int counter = 0;
 
+    // конструктор № 1
     public Movie(String movieName, MovieGenre genre, Person screenwriter) {
         this.setMovieName(movieName);
         this.genre = genre;
@@ -19,12 +20,16 @@ public class Movie implements Comparable<Movie> {
         Movie.counter++;
         this.id = 918291822 + Movie.counter; //автоматическая генерация id
     }
-
+// Геттеры, сеттеры
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
+        // проверяем условие из задания - id больше 0
+        if(!Movie.validateId(id)){
+            throw new RuntimeException("id не может быть меньше 0");
+        }
         this.id = id;
     }
 
@@ -33,8 +38,9 @@ public class Movie implements Comparable<Movie> {
     }
 
     public void setMovieName(String movieName) {
+        // делаем проверку на null и пустую строку
         if(!Movie.validateMovieName(movieName)){
-            throw new RuntimeException("Некорректное значение");
+            throw new RuntimeException("Некорректное значение, строка не может быть пустой");
         }
         this.movieName = movieName;
     }
@@ -105,6 +111,13 @@ public class Movie implements Comparable<Movie> {
     // Татьяна
     public static boolean validateId(Long id) {
         return (id >= 0);
+    }
+    // конструктор № 2 (для файла)
+    public Movie(long id, String movieName, MovieGenre genre, Person screenwriter) {
+        this.setId(id);
+        this.movieName = movieName;
+        this.genre = genre;
+        this.screenwriter = screenwriter;
     }
 }
 
