@@ -4,16 +4,9 @@ import java.util.Objects;
 
 public class Person {
     private String name; //Поле не может быть null, Строка не может быть пустой
-    private boolean isMan; //Поле не может быть null
-
-    public Person(String name, boolean isMan) {
-        if(!Person.validatePersonName(name)){
-            throw new RuntimeException("Некорректное значение");
-        }
-        this.name = name;
-        if(!Person.validateIsMan(isMan)){
-            throw new RuntimeException("Некорректное значение");
-        }
+    private boolean isMan;
+    public Person(String name, boolean isMan) { // конструктор
+        this.setName(name);
         this.isMan = isMan;
     }
 
@@ -31,6 +24,9 @@ public class Person {
     }
 
     public void setName(String name) {
+        if(!Person.validatePersonName(name)){
+            throw new RuntimeException("Некорректное значение");
+        }
         this.name = name;
     }
 
@@ -68,14 +64,5 @@ public class Person {
         return true;
     }
 
-    // валидация isMan (проверка на пограничные значения из задания)
-    // Поле не может быть null
-    // Татьяна
-    public static boolean validateIsMan(Boolean isMan){
-        if (isMan == null){
-            return false;
-        }
-            return true;
-    }
 
 }

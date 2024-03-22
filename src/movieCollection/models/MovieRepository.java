@@ -22,4 +22,8 @@ public class MovieRepository {
     public Collection<Movie> getValues() {
         return movieMap.values();
     }
+
+    public void add(Movie movie){
+        movieMap.put(movie.getId(), movie);
+    }
 }
