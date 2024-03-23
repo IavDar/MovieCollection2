@@ -64,6 +64,15 @@ public class Movie implements Comparable<Movie> {
         return counter;
     }
 
+    
+    public String getCSVLine() {
+        return id + ";" +
+                  movieName + ";" +
+                  genre.name() + ";" +
+                  screenwriter.getName() + ";" +
+                  screenwriter.getGender();
+    }
+
     @Override
     public String toString() {
         return  "Movie " +
