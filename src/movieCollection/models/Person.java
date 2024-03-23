@@ -23,6 +23,10 @@ public class Person {
         return name;
     }
 
+     public boolean getGender() {
+        return isMan;
+    }
+
     public void setName(String name) {
         if(!Person.validatePersonName(name)){
             throw new RuntimeException("Некорректное значение");
