@@ -116,11 +116,11 @@ public class CLIView {
                     break;
 
                 case "remove_greater":
-                    movieController.startRemoveGreaterCommand(argIn);
+                   this.startRemoveGreaterCommand(argIn);
                     break;
 
                 case "remove_lower":
-                    movieController.startRemoveLowerCommand(argIn);
+                    this.startRemoveLowerCommand(argIn);
                     break;
 
                 case "count_less_than_genre":
@@ -141,6 +141,28 @@ public class CLIView {
             System.out.println(movie);
         }
     }
+
+    public void startRemoveGreaterCommand(String argIn) { // Дарья
+
+        if (!Utils.isLong(argIn)) {
+            System.out.println("Указанно некорректное значение");
+            return;
+        }
+        Long idIn = Long.valueOf(argIn);
+        movieController.startRemoveGreaterCommand(idIn);
+        System.out.println("Элементы, id которых больше " + idIn + "удалены из списка" );
+    }
+
+    public void startRemoveLowerCommand(String argIn) { // Дарья
+        if (!Utils.isLong(argIn)) {
+            System.out.println("Указанно некорректное значение");
+            return;
+        }
+        Long idIn = Long.valueOf(argIn);
+        movieController.startRemoveLowerCommand(idIn);
+        System.out.println("Элементы, id которых меньше " + idIn + "удалены из списка" );
+    }
+
 
     void startCountLessThanGenreView(String argIn) {
         //1. Ввод и проверка данных
