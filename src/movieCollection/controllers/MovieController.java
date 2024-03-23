@@ -113,54 +113,28 @@ public class MovieController {
 
     }
 
-    public void startRemoveGreaterCommand(String argIn) {
-        //Дарья
-
-        if (!Utils.isLong(argIn)) {
-            System.out.println("Указанно некорректное значение");
-            return;
-        }
-
-        Long idIn = Long.valueOf(argIn);
+    public void startRemoveGreaterCommand(Long idIn) { //Дарья
         Set<Long> set = new HashSet<>();
-
-        for (Long idMap : movieRepo.getMovieMap().keySet()) {
+        for (Long idMap : movieRepo.getIdSet()) {
             if (idMap > idIn) {
                 set.add(idMap);
             }
         }
-
         for (Long id : set) {
-
-            System.out.println("Удалили " + " " + movieRepo.getMovieMap().get(id));
-
             movieRepo.getMovieMap().remove(id);
         }
     }
 
-    public void startRemoveLowerCommand(String argIn) { // Дарья
-
-        if (!Utils.isLong(argIn)) {
-            System.out.println("Указанно некорректное значение");
-            return;
-        }
-
-        Long idIn = Long.valueOf(argIn);
+    public void startRemoveLowerCommand(Long idIn) { // Дарья
         Set<Long> set = new HashSet<>();
-
-        for (Long idMap : movieRepo.getMovieMap().keySet()) {
+        for (Long idMap : movieRepo.getIdSet()) {
             if (idMap < idIn) {
                 set.add(idMap);
             }
         }
-
         for (Long id : set) {
-
-            System.out.println("Удалили " + " " + movieRepo.getMovieMap().get(id));
-
             movieRepo.getMovieMap().remove(id);
         }
-
     }
 
     public int startCountLessThanGenreCommand(MovieGenre targetGenre) { // Дарья
