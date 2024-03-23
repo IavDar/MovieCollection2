@@ -65,7 +65,7 @@ public class CLIView {
 
         System.out.println("Вас приветствует MovieCollection!\n");
 
-        do { // работу цикла надо проверить, когда напишем методы
+        do {
             this.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
             usersLine = scanner.nextLine();// считывание ввода пользователя
             String[] lineInParts = null;//вводим переменные для последующей обработки строк с пробелами
@@ -84,15 +84,15 @@ public class CLIView {
 
             switch (usersLine) {
                 case "exit":
-                    movieController.startExitCommand();
+                    this.startExitCommand();
                     break;
 
                 case "help":
-                    movieController.startHelpCommand();
+                    this.startHelpCommand();
                     break;
 
                 case "info":
-                    movieController.startInfoCommand();
+                    this.startInfoCommand();
                     break;
 
                 case "show":
@@ -100,7 +100,7 @@ public class CLIView {
                     break;
 
                 case "insert":
-                    movieController.startInsertCommand();
+                    this.startInsertCommand();
                     break;
 
                 case "update":
@@ -136,7 +136,7 @@ public class CLIView {
 
     public void startShowCommand() {
         System.out.println("Все элементы:");
-        Collection<Movie> movies = movieController.showCommand();
+        Collection<Movie> movies = movieController.handleShowCommand();
         for (Movie movie : movies) {
             System.out.println(movie);
         }
@@ -173,9 +173,10 @@ public class CLIView {
                         "remove_lower {fieldValue}\n" +
                         "count_less_than_genre {genre}\n ");
         System.out.print("Введите выбранную команду: ");
-
     }
 
+    // Составные части команды Insert
+    // 1. подполя для получения названия фильма
     private String addMovieName() {
         String movieName;
         do {
@@ -188,7 +189,7 @@ public class CLIView {
             }
         } while (true);
     }
-
+    // 2. подполя для получения жанра фильма
     private MovieGenre addMovieGenre() {
         String lineIn;
         do {
@@ -213,7 +214,7 @@ public class CLIView {
 
     }
 
-    //подполя для получения имени Person
+    // 3. подполя для получения имени Person
     private String addPersonName() {
         String personName;
         do {
@@ -227,7 +228,7 @@ public class CLIView {
         } while (true);
     }
 
-    //подполя для получения пола Person
+    // 4. подполя для получения пола Person
     private boolean addPersonGender() {
         String lineIn;
         do {
@@ -242,15 +243,41 @@ public class CLIView {
             }
         } while (true);
     }
-    //добавление Фильма с построковой задачей полей
-    public void startInsertCommand() {
+
+    //добавление фильма с построковым заданием полей
+    public void startInsertCommand() { // ПРОВЕРИТЬ!
         System.out.println("Добавить фильм");
-
-        Person person = new Person(addPersonName(), addPersonGender());
-        Movie movie1 = new Movie(addMovieName(), addMovieGenre(), person);
-        movieController.addMovie(movie1);
-
+        movieController.handleInsertCommand(addPersonName(), addPersonGender(), addMovieName(), addMovieGenre());
         System.out.println("Фильм добавлен в коллекцию");
     }
+
+    public void startSaveCommand() {
+        System.out.println("Сохраняем элементы...");
+        this.movieController.handleSaveCommand();
+    }
+
+    public void startInfoCommand() {//Екатерина
+        System.out.println("Коллекция содержит: " + movieController.handleInfoCommand() + " элементов\n");
+    }
+
+    public void startHelpCommand() {//Екатерина
+        System.out.println(
+                "info : вывести информацию о коллекции\n" +
+                        "show : вывести все элементы коллекции\n" +
+                        "insert: добавить новый элемент \n" +
+                        "update {id} : обновить значение элемента коллекции, id которого равен заданному\n" +
+                        "remove_key {id} : удалить элемент из коллекции по его ключу\n" +
+                        "clear : очистить коллекцию\n" +
+                        "exit : завершить программу (без сохранения в файл)\n" +
+                        "remove_greater {fieldValue} : удалить из коллекции все элементы, ключ которых превышает заданный\n" +
+                        "remove_lower {fieldValue} : удалить из коллекции все элементы, ключ которых меньше, чем заданный\n" +
+                        "count_less_than_genre {genre}: вывести количество элементов, значение поля genre которых меньше заданного\n");
+    }
+
+    public void startExitCommand() { // Татьяна
+        System.out.println("Программа завершена. До свидания!");
+        System.exit(0);
+    }
+
 
 }

@@ -7,39 +7,31 @@ import java.util.*;
 
 public class MovieController {
 
-    MovieRepository movieRepo;
-    CSVFileRepository fileRepo;
-
-    public Collection<Movie> showCommand() {
-        return movieRepo.getValues();
-    }
+    private final MovieRepository movieRepo;
+    private final CSVFileRepository fileRepo;
     Scanner scanner;
-   // private Map<Long, Movie> movieMap;
 
     public void setMovieMap(HashMap<Long, Movie> movieMap) { //Дарья
         movieRepo.setMovieMap(movieMap);
     }
 
     public MovieController(String filepath) {// конструктор
-        scanner = new Scanner(System.in);
-        movieRepo = new MovieRepository();
-        fileRepo = new CSVFileRepository(filepath);
-
-
-        //repo.getMovieMap() = new HashMap<>();
+        this.scanner = new Scanner(System.in);
+        this.movieRepo = new MovieRepository();
+        this.fileRepo = new CSVFileRepository(filepath);
     }
 
-    public void handleSaveCommand(){  // сохранить фильмы в файл
+    public void handleSaveCommand() {  // сохранить фильмы в файл
 
     }
 
-    public void loadMovies(){  // загрузить фильмы из файла
+    public void loadMovies() {  // загрузить фильмы из файла
 
 
     }
 
     public void addMovie(Movie movie) { // метод для добавления фильмов в HashMap. Не работает ((
-        movieRepo.getMovieMap().put(movie.getId(), movie);
+        this.movieRepo.add(movie);
     }
 
     Person person1 = new Person("Инна Веткина", false);
@@ -59,108 +51,20 @@ public class MovieController {
     Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
     Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
 
-
-
-
-    public void startHelpCommand() {//Екатерина
-        System.out.println(
-                "info : вывести информацию о коллекции\n" +
-                        "show : вывести все элементы коллекции\n" +
-                        "insert: добавить новый элемент \n" +
-                        "update {id} : обновить значение элемента коллекции, id которого равен заданному\n" +
-                        "remove_key {id} : удалить элемент из коллекции по его ключу\n" +
-                        "clear : очистить коллекцию\n" +
-                        "exit : завершить программу (без сохранения в файл)\n" +
-                        "remove_greater {fieldValue} : удалить из коллекции все элементы, ключ которых превышает заданный\n" +
-                        "remove_lower {fieldValue} : удалить из коллекции все элементы, ключ которых меньше, чем заданный\n" +
-                        "count_less_than_genre {genre}: вывести количество элементов, значение поля genre которых меньше заданного\n");
+    public int handleInfoCommand() {//Екатерина
+        return this.movieRepo.size();
     }
 
-    public void startInfoCommand() {//Екатерина
-
-        System.out.println("Коллекция содержит: " + movieRepo.getMovieMap().size() + " элементов\n");
+    public Collection<Movie> handleShowCommand() {
+        return movieRepo.getValues();
     }
 
-
-    //добавление Фильма с построковой задачей полей
-    public void startInsertCommand() {
-        System.out.println("Добавить фильм");
-
-        Person person = new Person(addPersonName(), addPersonGender());
-        Movie movie1 = new Movie(addMovieName(), addMovieGenre(), person);
-        movieRepo.getMovieMap().put(movie1.getId(), movie1);
-
-        System.out.println("Фильм добавлен в коллекцию");
+    public void handleInsertCommand( // ПРОВЕРИТЬ!
+                                     String personName, boolean gender, String movieName, MovieGenre genre) {
+        Person person = new Person(personName, gender);
+        Movie movie1 = new Movie(movieName, genre, person);
+        this.movieRepo.add(movie1);
     }
-
-    //подполя для получения аргументов
-    private String addMovieName() {
-        String movieName;
-        do {
-            System.out.println("Задайте название фильма: ");
-            movieName = scanner.nextLine();
-            if (movieName.isEmpty()) {
-                System.out.println("Строка не может быть пустой");
-            } else {
-                return movieName;
-            }
-        } while (true);
-    }
-
-    private MovieGenre addMovieGenre() {
-        String lineIn;
-        do {
-            System.out.println("Задайте жанр: ");
-            System.out.println(Arrays.toString(MovieGenre.values()));
-            lineIn = scanner.nextLine().toUpperCase();
-            switch (lineIn) {
-                case "ACTION":
-                    return MovieGenre.ACTION;
-                case "ADVENTURE":
-                    return MovieGenre.ADVENTURE;
-                case "TRAGEDY":
-                    return MovieGenre.TRAGEDY;
-                case "HORROR":
-                    return MovieGenre.HORROR;
-                case "FANTASY":
-                    return MovieGenre.FANTASY;
-                default:
-                    System.out.println("Неверно задан жанр");
-            }
-        } while (true);
-
-    }
-
-    //подполя для получения имени Person
-    private String addPersonName() {
-        String personName;
-        do {
-            System.out.println("Задайте имя сценариста: ");
-            personName = scanner.nextLine();
-            if (personName.isEmpty()) {
-                System.out.println("Строка не может быть пустой.");
-            } else {
-                return personName;
-            }
-        } while (true);
-    }
-
-    //подполя для получения пола Person
-    private boolean addPersonGender() {
-        String lineIn;
-        do {
-            System.out.println("Сценарист мужчина? [yes/no]");
-            lineIn = scanner.nextLine().toLowerCase();
-            if (lineIn.equals("yes")) {
-                return true;
-            } else if (lineIn.equals("no")) {
-                return false;
-            } else {
-                System.out.println("строка не может быть пустой.");
-            }
-        } while (true);
-    }
-
 
     public void startUpdateCommand(String argIn) { // Акмур
 
@@ -182,7 +86,8 @@ public class MovieController {
     }
 
 
-    public void startClearCommand() { // Татьяна
+    public void startClearCommand() {
+        // Татьяна
 
         do {
             System.out.print("Вы действительно хотите удалить все элементы из списка? [yes/no] : ");
@@ -204,11 +109,6 @@ public class MovieController {
 
         } while (true);
 
-    }
-
-    public void startExitCommand() { // Татьяна
-        System.out.println("Программа завершена. До свидания!");
-        System.exit(0);
     }
 
     public void startRemoveGreaterCommand(String argIn) {
