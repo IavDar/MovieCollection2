@@ -59,9 +59,10 @@ public class MovieController {
 
     public Collection<Movie> handleShowCommand() {
         return movieRepo.getValues();
+
     }
 
-    public void handleInsertCommand( // ПРОВЕРИТЬ!
+    public void handleInsertCommand(
                                      String personName, boolean gender, String movieName, MovieGenre genre) {
         Person person = new Person(personName, gender);
         Movie movie1 = new Movie(movieName, genre, person);

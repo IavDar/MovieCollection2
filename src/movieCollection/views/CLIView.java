@@ -63,7 +63,7 @@ public class CLIView {
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
 
-        System.out.println("Вас приветствует MovieCollection!\n");
+        System.out.println("Вас приветствует MovieCollection!");
 
         do {
             this.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
@@ -160,7 +160,8 @@ public class CLIView {
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         System.out.println(
-                "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n\n" +
+                "======================================================================================\n" +
+                "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n" +
                         "help\n" +
                         "info\n" +
                         "show\n" +
@@ -245,7 +246,7 @@ public class CLIView {
     }
 
     //добавление фильма с построковым заданием полей
-    public void startInsertCommand() { // ПРОВЕРИТЬ!
+    public void startInsertCommand() {
         System.out.println("Добавить фильм");
         movieController.handleInsertCommand(addPersonName(), addPersonGender(), addMovieName(), addMovieGenre());
         System.out.println("Фильм добавлен в коллекцию");
