@@ -22,6 +22,8 @@ public class MovieController {
     }
 
     public void handleSaveCommand() {  // сохранить фильмы в файл
+        Collection<Movie> movies = this.movieRepo.getValues();
+        this.fileRepo.save(movies);
 
     }
 
