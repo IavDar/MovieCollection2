@@ -1,5 +1,7 @@
 package movieCollection.models;
 
+import movieCollection.Utils;
+
 import java.util.Objects;
 
 public class Movie implements Comparable<Movie> {
@@ -103,10 +105,11 @@ public class Movie implements Comparable<Movie> {
         return (int)(this.getId() - o.getId());
     }
 
-    // валидация movieName (проверка на пограничные значения из задания)
-    // Поле не может быть null, Строка не может быть пустой
-    // Татьяна
-    public static boolean validateMovieName(String movieName) { // Татьяна
+
+    public static boolean validateMovieName(String movieName) {
+        // валидация movieName (проверка на пограничные значения из задания)
+        // Поле не может быть null, Строка не может быть пустой
+        // Татьяна
         if (movieName == null){ // Поле не может быть null
             return false;
         }
@@ -115,18 +118,53 @@ public class Movie implements Comparable<Movie> {
         }
         return true;
     }
-    // валидация id
-    // Значение поля должно быть больше 0
-    // Татьяна
+
     public static boolean validateId(Long id) {
+        // валидация id
+        // Значение поля должно быть больше 0
+        // Татьяна
         return (id >= 0);
     }
-    // конструктор № 2 (для файла)
-    public Movie(long id, String movieName, MovieGenre genre, Person screenwriter) {
+
+    public Movie(Long id, String movieName, MovieGenre genre, String name, boolean isMan) {
+        // конструктор № 2 (для файла)
         this.setId(id);
         this.movieName = movieName;
         this.genre = genre;
         this.screenwriter = screenwriter;
+    }
+
+    public static Movie parseFromCSV(String line) {
+        // "918291832;Приключения Электроника;ADVENTURE;Евгений Велтистов;true"
+        String[] parts = line.split(";");
+
+        if (!Utils.isInt(parts[0])) {
+            return null;
+        }
+        Long id = Long.parseLong(parts[0]);
+
+        if (!Utils.isEnum(parts[2], MovieGenre.class)) {
+            return null;
+        }
+        MovieGenre genre = MovieGenre.valueOf(parts[2]);
+
+        if (!Utils.isBoolean(parts[4])) {
+            return null;
+        }
+        boolean gender = Boolean.parseBoolean(parts[4]);
+
+        try {
+            Movie movie = new Movie(
+                    id,
+                    parts[1],
+                    genre,
+                    parts[3],
+                    gender
+            );
+            return movie;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
 

@@ -17,6 +17,10 @@ public class MovieController {
         this.fileRepo = new CSVFileRepository(filepath);
     }
 
+    public void addMovie(Movie movie){
+        this.movieRepo.add(movie);
+    }
+
     public void handleSaveCommand() {  // сохранить фильмы в файл
         Collection<Movie> movies = this.movieRepo.getValues();
         this.fileRepo.save(movies);
@@ -26,22 +30,6 @@ public class MovieController {
     public void loadMovies() {  // загрузить фильмы из файла
 
     }
-//    Person person1 = new Person("Инна Веткина", false);  // это все здесь не нужно, можно удалять
-//    Person person2 = new Person("Евгений Велтистов", true);
-//    Person person3 = new Person("Люк Бессон", true);
-//    Person person4 = new Person("David Fincher", true);
-//    Person person5 = new Person("Ryan Murphy", true);
-//    Person person6 = new Person("Fatih Akin", true);
-//    Person person7 = new Person("Tim Burton", true);
-//    Person person8 = new Person("Александр Войтинский", true);
-//    Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION, person1);
-//    Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE, person2);
-//    Movie movie3 = new Movie("Люси", MovieGenre.ACTION, person3);
-//    Movie movie4 = new Movie("Gone Girl", MovieGenre.TRAGEDY, person4);
-//    Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
-//    Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
-//    Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
-//    Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
 
     public int handleInfoCommand() {//Екатерина
         return this.movieRepo.size();
@@ -62,7 +50,7 @@ public class MovieController {
 
     }
 
-    public boolean startRemoveKeyCommand(long idValue) { // Татьяна
+    public boolean handleRemoveKeyCommand(long idValue) { // Татьяна
         if (this.movieRepo.containsKey(idValue)) {
             this.movieRepo.remove(idValue);
             return true;
@@ -70,12 +58,12 @@ public class MovieController {
         return false;
     }
 
-    public void startClearCommand() {
+    public void handleClearCommand() {
         // Татьяна
         movieRepo.clear();
     }
 
-    public void startRemoveGreaterCommand(Long idIn) { //Дарья
+    public void handleRemoveGreaterCommand(Long idIn) { //Дарья
         Set<Long> set = new HashSet<>();
         for (Long idMap : movieRepo.getIdSet()) {
             if (idMap > idIn) {
@@ -87,7 +75,7 @@ public class MovieController {
         }
     }
 
-    public void startRemoveLowerCommand(Long idIn) { // Дарья
+    public void handleRemoveLowerCommand(Long idIn) { // Дарья
         Set<Long> set = new HashSet<>();
         for (Long idMap : movieRepo.getIdSet()) {
             if (idMap < idIn) {
@@ -99,7 +87,7 @@ public class MovieController {
         }
     }
 
-    public int startCountLessThanGenreCommand(MovieGenre targetGenre) { // Дарья
+    public int handleCountLessThanGenreCommand(MovieGenre targetGenre) { // Дарья
 
         int counter = 0;
         for (Movie movie : movieRepo.getValues()) {

@@ -23,31 +23,19 @@ public class CLIView {
 
 
         // создаём объекты Person и Movie;
-        Person person1 = new Person("Инна Веткина", false);
-        Person person2 = new Person("Евгений Велтистов", true);
-        Person person3 = new Person("Люк Бессон", true);
-        Person person4 = new Person("David Fincher", true);
-        Person person5 = new Person("Ryan Murphy", true);
-        Person person6 = new Person("Fatih Akin", true);
-        Person person7 = new Person("Tim Burton", true);
-        Person person8 = new Person("Александр Войтинский", true);
-        Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION, person1);
-        Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE, person2);
-        Movie movie3 = new Movie("Люси", MovieGenre.ACTION, person3);
-        Movie movie4 = new Movie("Gone Girl", MovieGenre.TRAGEDY, person4);
-        Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
-        Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
-        Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
-        Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
-
-        movieMap.put(movie1.getId(), movie1);
-        movieMap.put(movie2.getId(), movie2);
-        movieMap.put(movie3.getId(), movie3);
-        movieMap.put(movie4.getId(), movie4);
-        movieMap.put(movie5.getId(), movie5);
-        movieMap.put(movie6.getId(), movie6);
-        movieMap.put(movie7.getId(), movie7);
-        movieMap.put(movie8.getId(), movie8);
+        Movie[] initMovies = {
+        new Movie("Приключения Буратино", MovieGenre.ACTION, new Person("Инна Веткина", false)),
+        new Movie("Приключения Электроника", MovieGenre.ADVENTURE, new Person("Евгений Велтистов", true) ),
+        new Movie("Люси", MovieGenre.ACTION, new Person("Люк Бессон", true)),
+        new Movie("Gone Girl", MovieGenre.TRAGEDY, new Person("David Fincher", true)),
+        new Movie("Dahmer-Monster", MovieGenre.HORROR, new Person("Ryan Murphy", true)),
+        new Movie("Gegen die Wand", MovieGenre.TRAGEDY, new Person("Fatih Akin", true)),
+        new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, new Person("Tim Burton", true)),
+        new Movie("По щучъему велению.", MovieGenre.FANTASY, new Person("Александр Войтинский", true))
+        };
+        for(Movie movie : initMovies){
+            movieController.addMovie(movie);
+        }
 
         // для наглядности выводим HashMap на печать
         System.out.println("Коллекция фильмов:\n " + movieMap);
@@ -92,6 +80,10 @@ public class CLIView {
                     this.startHelpCommand();
                     break;
 
+                case "save":
+                    this.startSaveCommand();
+                    break;
+
                 case "info":
                     this.startInfoCommand();
                     break;
@@ -128,6 +120,7 @@ public class CLIView {
                     this.startCountLessThanGenreView(argIn);
                     break;
 
+
                 default:
                     System.out.println("Вы ввели неверную команду. Попробуйте ещё раз: ");
             }
@@ -150,7 +143,7 @@ public class CLIView {
             return;
         }
         Long idIn = Long.valueOf(argIn);
-        movieController.startRemoveGreaterCommand(idIn);
+        movieController.handleRemoveGreaterCommand(idIn);
         System.out.println("Элементы, id которых больше " + idIn + "удалены из списка" );
     }
 
@@ -160,7 +153,7 @@ public class CLIView {
             return;
         }
         Long idIn = Long.valueOf(argIn);
-        movieController.startRemoveLowerCommand(idIn);
+        movieController.handleRemoveLowerCommand(idIn);
         System.out.println("Элементы, id которых меньше " + idIn + "удалены из списка" );
     }
 
@@ -175,7 +168,7 @@ public class CLIView {
         MovieGenre targetGenre = MovieGenre.valueOf(argIn);
 
         //2. Вызов контроллера
-        int counter = movieController.startCountLessThanGenreCommand(targetGenre);
+        int counter = movieController.handleCountLessThanGenreCommand(targetGenre);
 
         //3. Вывод результата
         System.out.println("Количество элементов: " + counter);
@@ -186,6 +179,7 @@ public class CLIView {
                 "======================================================================================\n" +
                 "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n" +
                         "help\n" +
+                        "save\n" +
                         "info\n" +
                         "show\n" +
                         "insert\n" +
@@ -271,7 +265,11 @@ public class CLIView {
     //добавление фильма с построковым заданием полей
     public void startInsertCommand() {
         System.out.println("Добавить фильм");
-        movieController.handleInsertCommand(addPersonName(), addPersonGender(), addMovieName(), addMovieGenre());
+        String personName = addPersonName();
+        boolean gender = addPersonGender();
+        String movieName = addMovieName();
+        MovieGenre genre = addMovieGenre();
+        movieController.handleInsertCommand(personName, gender, movieName, genre);
         System.out.println("Фильм добавлен в коллекцию");
     }
 
@@ -286,7 +284,8 @@ public class CLIView {
 
     public void startHelpCommand() {//Екатерина
         System.out.println(
-                "info : вывести информацию о коллекции\n" +
+                        "save : сохранить коллекцию в файл\n" +
+                        "info : вывести информацию о коллекции\n" +
                         "show : вывести все элементы коллекции\n" +
                         "insert: добавить новый элемент \n" +
                         "update {id} : обновить значение элемента коллекции, id которого равен заданному\n" +
@@ -305,12 +304,12 @@ public class CLIView {
 
     public void startRemoveKeyCommand(String argIn) { // Татьяна
 
-        if (!Utils.isInt(argIn) || argIn == null) {
+        if (!Utils.isLong(argIn) || argIn == null) {
             System.out.println("Некорректный аргумент");
             return;
         }
         long idValue = Long.parseLong(argIn); // преобразование String в long
-        if (movieController.startRemoveKeyCommand(idValue)) {
+        if (movieController.handleRemoveKeyCommand(idValue)) {
             System.out.println("Элемент с id " + idValue + " успешно удалён");
         } else
             System.out.println("Такого элемента нет в списке");
@@ -323,7 +322,7 @@ public class CLIView {
             scanner = new Scanner(System.in);
             String answer = scanner.nextLine();
             if (answer.equalsIgnoreCase("yes")) {
-                movieController.startClearCommand();
+                movieController.handleClearCommand();
                 System.out.println("Список очищен");
                 break;
             } else if (answer.equalsIgnoreCase("no")) {
