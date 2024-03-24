@@ -12,14 +12,6 @@ public class MovieRepository {
         this.movieMap = new HashMap<>();
     }
 
-    public HashMap<Long, Movie> getMovieMap() {
-        return movieMap;
-    }
-
-    public void setMovieMap(HashMap<Long, Movie> movieMap) {
-        this.movieMap = movieMap;
-    }
-
     public Collection<Movie> getValues() {
         return movieMap.values();
     }

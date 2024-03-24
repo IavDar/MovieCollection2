@@ -11,10 +11,6 @@ public class MovieController {
     private final CSVFileRepository fileRepo;
     Scanner scanner;
 
-    public void setMovieMap(HashMap<Long, Movie> movieMap) { //Дарья
-        movieRepo.setMovieMap(movieMap);
-    }
-
     public MovieController(String filepath) {// конструктор
         this.scanner = new Scanner(System.in);
         this.movieRepo = new MovieRepository();
@@ -30,22 +26,22 @@ public class MovieController {
     public void loadMovies() {  // загрузить фильмы из файла
 
     }
-    Person person1 = new Person("Инна Веткина", false);
-    Person person2 = new Person("Евгений Велтистов", true);
-    Person person3 = new Person("Люк Бессон", true);
-    Person person4 = new Person("David Fincher", true);
-    Person person5 = new Person("Ryan Murphy", true);
-    Person person6 = new Person("Fatih Akin", true);
-    Person person7 = new Person("Tim Burton", true);
-    Person person8 = new Person("Александр Войтинский", true);
-    Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION, person1);
-    Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE, person2);
-    Movie movie3 = new Movie("Люси", MovieGenre.ACTION, person3);
-    Movie movie4 = new Movie("Gone Girl", MovieGenre.TRAGEDY, person4);
-    Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
-    Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
-    Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
-    Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
+//    Person person1 = new Person("Инна Веткина", false);  // это все здесь не нужно, можно удалять
+//    Person person2 = new Person("Евгений Велтистов", true);
+//    Person person3 = new Person("Люк Бессон", true);
+//    Person person4 = new Person("David Fincher", true);
+//    Person person5 = new Person("Ryan Murphy", true);
+//    Person person6 = new Person("Fatih Akin", true);
+//    Person person7 = new Person("Tim Burton", true);
+//    Person person8 = new Person("Александр Войтинский", true);
+//    Movie movie1 = new Movie("Приключения Буратино", MovieGenre.ACTION, person1);
+//    Movie movie2 = new Movie("Приключения Электроника", MovieGenre.ADVENTURE, person2);
+//    Movie movie3 = new Movie("Люси", MovieGenre.ACTION, person3);
+//    Movie movie4 = new Movie("Gone Girl", MovieGenre.TRAGEDY, person4);
+//    Movie movie5 = new Movie("Dahmer-Monster", MovieGenre.HORROR, person5);
+//    Movie movie6 = new Movie("Gegen die Wand", MovieGenre.TRAGEDY, person6);
+//    Movie movie7 = new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, person7);
+//    Movie movie8 = new Movie("По щучъему велению.", MovieGenre.FANTASY, person8);
 
     public int handleInfoCommand() {//Екатерина
         return this.movieRepo.size();
@@ -87,7 +83,7 @@ public class MovieController {
             }
         }
         for (Long id : set) {
-            movieRepo.getMovieMap().remove(id);
+            movieRepo.remove(id);
         }
     }
 
@@ -99,14 +95,14 @@ public class MovieController {
             }
         }
         for (Long id : set) {
-            movieRepo.getMovieMap().remove(id);
+            movieRepo.remove(id);
         }
     }
 
     public int startCountLessThanGenreCommand(MovieGenre targetGenre) { // Дарья
 
         int counter = 0;
-        for (Movie movie : movieRepo.getMovieMap().values()) {
+        for (Movie movie : movieRepo.getValues()) {
 
             if (movie.getGenre().ordinal() < targetGenre.ordinal()) {
                 counter = counter + 1;

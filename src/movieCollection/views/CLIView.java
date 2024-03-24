@@ -21,6 +21,7 @@ public class CLIView {
         //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
         HashMap<Long, Movie> movieMap = new HashMap<>();
 
+
         // создаём объекты Person и Movie;
         Person person1 = new Person("Инна Веткина", false);
         Person person2 = new Person("Евгений Велтистов", true);
@@ -51,13 +52,13 @@ public class CLIView {
         // для наглядности выводим HashMap на печать
         System.out.println("Коллекция фильмов:\n " + movieMap);
 
-        movieController.setMovieMap(movieMap);// Дарья
-
         // сортировка HashMap по ключу
         List<Movie> listValues = new ArrayList<>(movieMap.values());
         Collections.sort(listValues);
         // для наглядности выводим отсортированный список на печать
         System.out.println("Коллекция отсортирована:\n " + listValues + "\n ");
+
+        this.loadTestData(); // временный метод для тестирования (замена movieController.setMovieMap())
 
         //начало работы с пользовательским вводом
         Scanner scanner = new Scanner(System.in);
@@ -334,5 +335,12 @@ public class CLIView {
         } while (true);
     }
 
+    void loadTestData()  //метод для тестирования временный
+    {
+        movieController.handleInsertCommand("Инна Веткина", false, "Приключения Буратино", MovieGenre.ACTION);
+        movieController.handleInsertCommand("Евгений Велтистов", true, "Приключения Электроника", MovieGenre.ADVENTURE);
+
+        this.startShowCommand();
+    }
 
 }
