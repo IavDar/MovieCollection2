@@ -29,13 +29,7 @@ public class MovieController {
 
     public void loadMovies() {  // загрузить фильмы из файла
 
-
     }
-
-    public void addMovie(Movie movie) { // метод для добавления фильмов в HashMap. Не работает ((
-        this.movieRepo.add(movie);
-    }
-
     Person person1 = new Person("Инна Веткина", false);
     Person person2 = new Person("Евгений Велтистов", true);
     Person person3 = new Person("Люк Бессон", true);
@@ -61,8 +55,8 @@ public class MovieController {
         return movieRepo.getValues();
     }
 
-    public void handleInsertCommand( // ПРОВЕРИТЬ!
-                                     String personName, boolean gender, String movieName, MovieGenre genre) {
+    public void handleInsertCommand(
+            String personName, boolean gender, String movieName, MovieGenre genre) {
         Person person = new Person(personName, gender);
         Movie movie1 = new Movie(movieName, genre, person);
         this.movieRepo.add(movie1);
@@ -72,45 +66,17 @@ public class MovieController {
 
     }
 
-    public void startRemoveKeyCommand(String argIn) { // Татьяна
-
-        if (!Utils.isInt(argIn) || argIn == null) {
-            System.out.println("Некорректный аргумент");
-            return;
+    public boolean startRemoveKeyCommand(long idValue) { // Татьяна
+        if (this.movieRepo.containsKey(idValue)) {
+            this.movieRepo.remove(idValue);
+            return true;
         }
-        long idValue = Long.parseLong(argIn); // преобразование String в long "1982912981" -> 1982912981
-        if (movieRepo.getMovieMap().containsKey(idValue)) {
-            movieRepo.getMovieMap().remove(idValue);
-            System.out.println("Элемент с id " + idValue + " успешно удалён");
-        } else
-
-            System.out.println("Такого элемента нет в списке");
+        return false;
     }
-
 
     public void startClearCommand() {
         // Татьяна
-
-        do {
-            System.out.print("Вы действительно хотите удалить все элементы из списка? [yes/no] : ");
-            scanner = new Scanner(System.in);
-            String answer = scanner.nextLine();
-            if (answer.equalsIgnoreCase("yes")) {
-                Map<Long, Movie> movieMap1 = movieRepo.getMovieMap();// пока сделала на всякий случай с копией
-                movieMap1.clear();
-                System.out.println("Список очищен");
-                break;
-
-            } else if (answer.equalsIgnoreCase("no")) {
-                System.out.println("Команда отменена");
-                break;
-
-            } else {
-                System.out.println("Вы ввели неверное значение. Попробуйте ещё раз. ");
-            }
-
-        } while (true);
-
+        movieRepo.clear();
     }
 
     public void startRemoveGreaterCommand(Long idIn) { //Дарья

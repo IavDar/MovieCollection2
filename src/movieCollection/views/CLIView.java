@@ -63,7 +63,7 @@ public class CLIView {
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
 
-        System.out.println("Вас приветствует MovieCollection!\n");
+        System.out.println("Вас приветствует MovieCollection!");
 
         do {
             this.startIntro();// выводим приветствие и набор команд. ожидаем ввод пользователя
@@ -108,11 +108,11 @@ public class CLIView {
                     break;
 
                 case "remove_key":
-                    movieController.startRemoveKeyCommand(argIn);
+                    this.startRemoveKeyCommand(argIn);
                     break;
 
                 case "clear":
-                    movieController.startClearCommand();
+                    this.startClearCommand();
                     break;
 
                 case "remove_greater":
@@ -182,7 +182,8 @@ public class CLIView {
 
     public void startIntro() { //начальное сообщение с приглашением к выбору команды
         System.out.println(
-                "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n\n" +
+                "======================================================================================\n" +
+                "Выберите команду из списка. Для получения справки по доступным командам выберите help.\n" +
                         "help\n" +
                         "info\n" +
                         "show\n" +
@@ -267,7 +268,7 @@ public class CLIView {
     }
 
     //добавление фильма с построковым заданием полей
-    public void startInsertCommand() { // ПРОВЕРИТЬ!
+    public void startInsertCommand() {
         System.out.println("Добавить фильм");
         movieController.handleInsertCommand(addPersonName(), addPersonGender(), addMovieName(), addMovieGenre());
         System.out.println("Фильм добавлен в коллекцию");
@@ -299,6 +300,38 @@ public class CLIView {
     public void startExitCommand() { // Татьяна
         System.out.println("Программа завершена. До свидания!");
         System.exit(0);
+    }
+
+    public void startRemoveKeyCommand(String argIn) { // Татьяна
+
+        if (!Utils.isInt(argIn) || argIn == null) {
+            System.out.println("Некорректный аргумент");
+            return;
+        }
+        long idValue = Long.parseLong(argIn); // преобразование String в long
+        if (movieController.startRemoveKeyCommand(idValue)) {
+            System.out.println("Элемент с id " + idValue + " успешно удалён");
+        } else
+            System.out.println("Такого элемента нет в списке");
+    }
+
+    public void startClearCommand () {
+        // Татьяна
+        do {
+            System.out.print("Вы действительно хотите удалить все элементы из списка? [yes/no] : ");
+            scanner = new Scanner(System.in);
+            String answer = scanner.nextLine();
+            if (answer.equalsIgnoreCase("yes")) {
+                movieController.startClearCommand();
+                System.out.println("Список очищен");
+                break;
+            } else if (answer.equalsIgnoreCase("no")) {
+                System.out.println("Команда отменена");
+                break;
+            } else {
+                System.out.println("Вы ввели неверное значение. Попробуйте ещё раз. ");
+            }
+        } while (true);
     }
 
 
