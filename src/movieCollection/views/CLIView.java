@@ -15,39 +15,39 @@ public class CLIView {
     public void run(String filepath) {
 
         movieController = new MovieController(filepath);
-        movieController.loadMovies();
+//        movieController.loadMovies(); // метод пустой ???
 
         scanner = new Scanner(System.in);
-        //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
-        HashMap<Long, Movie> movieMap = new HashMap<>();
-
-
-        // создаём объекты Person и Movie;
-        Movie[] initMovies = {
-        new Movie("Приключения Буратино", MovieGenre.ACTION, new Person("Инна Веткина", false)),
-        new Movie("Приключения Электроника", MovieGenre.ADVENTURE, new Person("Евгений Велтистов", true) ),
-        new Movie("Люси", MovieGenre.ACTION, new Person("Люк Бессон", true)),
-        new Movie("Gone Girl", MovieGenre.TRAGEDY, new Person("David Fincher", true)),
-        new Movie("Dahmer-Monster", MovieGenre.HORROR, new Person("Ryan Murphy", true)),
-        new Movie("Gegen die Wand", MovieGenre.TRAGEDY, new Person("Fatih Akin", true)),
-        new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, new Person("Tim Burton", true)),
-        new Movie("По щучъему велению.", MovieGenre.FANTASY, new Person("Александр Войтинский", true))
-        };
-        for(Movie movie : initMovies){
-            movieController.addMovie(movie);
-        }
-
-        // для наглядности выводим HashMap на печать
-        System.out.println("Коллекция фильмов:\n " + movieMap);
-
-        // сортировка HashMap по ключу
-        List<Movie> listValues = new ArrayList<>(movieMap.values());
-        Collections.sort(listValues);
-        // для наглядности выводим отсортированный список на печать
-        System.out.println("Коллекция отсортирована:\n " + listValues + "\n ");
-
-        this.loadTestData(); // временный метод для тестирования (замена movieController.setMovieMap())
-
+//        //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
+//        HashMap<Long, Movie> movieMap = new HashMap<>();
+//
+//
+//        // создаём объекты Person и Movie;
+//        Movie[] initMovies = {
+//        new Movie("Приключения Буратино", MovieGenre.ACTION, new Person("Инна Веткина", false)),
+//        new Movie("Приключения Электроника", MovieGenre.ADVENTURE, new Person("Евгений Велтистов", true) ),
+//        new Movie("Люси", MovieGenre.ACTION, new Person("Люк Бессон", true)),
+//        new Movie("Gone Girl", MovieGenre.TRAGEDY, new Person("David Fincher", true)),
+//        new Movie("Dahmer-Monster", MovieGenre.HORROR, new Person("Ryan Murphy", true)),
+//        new Movie("Gegen die Wand", MovieGenre.TRAGEDY, new Person("Fatih Akin", true)),
+//        new Movie("Die Insel der besonderen Kinder", MovieGenre.FANTASY, new Person("Tim Burton", true)),
+//        new Movie("По щучъему велению.", MovieGenre.FANTASY, new Person("Александр Войтинский", true))
+//        };
+//        for(Movie movie : initMovies){
+//            movieController.addMovie(movie);
+//        }
+//
+//        // для наглядности выводим HashMap на печать
+//        System.out.println("Коллекция фильмов:\n " + movieMap);
+//
+//        // сортировка HashMap по ключу
+//        List<Movie> listValues = new ArrayList<>(movieMap.values());
+//        Collections.sort(listValues);
+//        // для наглядности выводим отсортированный список на печать
+//        System.out.println("Коллекция отсортирована:\n " + listValues + "\n ");
+//
+//        this.loadTestData(); // временный метод для тестирования (замена movieController.setMovieMap())
+//
         //начало работы с пользовательским вводом
         Scanner scanner = new Scanner(System.in);
         String usersLine;// строка ввода пользователя
@@ -129,39 +129,44 @@ public class CLIView {
     }
 
     public void startShowCommand() {
-        System.out.println("Все элементы:");
         Collection<Movie> movies = movieController.handleShowCommand();
-        for (Movie movie : movies) {
-            System.out.println(movie);
+        if (movies.isEmpty()) {
+            System.out.println("Список пуст");
+        } else {
+            System.out.println("Все элементы:");
+            for (Movie movie : movies) {
+                System.out.println(movie);
+            }
         }
+
     }
 
     public void startRemoveGreaterCommand(String argIn) { // Дарья
 
         if (!Utils.isLong(argIn)) {
-            System.out.println("Указанно некорректное значение");
+            System.out.println("Указано некорректное значение");
             return;
         }
         Long idIn = Long.valueOf(argIn);
         movieController.handleRemoveGreaterCommand(idIn);
-        System.out.println("Элементы, id которых больше " + idIn + "удалены из списка" );
+        System.out.println("Элементы, id которых больше " + idIn + " удалены из списка" );
     }
 
     public void startRemoveLowerCommand(String argIn) { // Дарья
         if (!Utils.isLong(argIn)) {
-            System.out.println("Указанно некорректное значение");
+            System.out.println("Указано некорректное значение");
             return;
         }
         Long idIn = Long.valueOf(argIn);
         movieController.handleRemoveLowerCommand(idIn);
-        System.out.println("Элементы, id которых меньше " + idIn + "удалены из списка" );
+        System.out.println("Элементы, id которых меньше " + idIn + " удалены из списка" );
     }
 
 
     void startCountLessThanGenreView(String argIn) {
         //1. Ввод и проверка данных
         if (!Utils.isEnum(argIn, MovieGenre.class)) {
-            System.out.println("Указанно некорректное значение");
+            System.out.println("Указано некорректное значение");
             return;
         }
 
@@ -200,11 +205,12 @@ public class CLIView {
         do {
             System.out.println("Задайте название фильма: ");
             movieName = scanner.nextLine();
-            if (movieName.isEmpty()) {
+            // применяем метод валидации из Movie
+            if (!Movie.validateMovieName(movieName)) {
                 System.out.println("Строка не может быть пустой");
-            } else {
-                return movieName;
+                continue;
             }
+            return movieName;
         } while (true);
     }
     // 2. подполя для получения жанра фильма
@@ -238,7 +244,8 @@ public class CLIView {
         do {
             System.out.println("Задайте имя сценариста: ");
             personName = scanner.nextLine();
-            if (personName.isEmpty()) {
+            // валидация с помощью метода из Person
+            if (!Person.validatePersonName(personName)) {
                 System.out.println("Строка не может быть пустой.");
             } else {
                 return personName;

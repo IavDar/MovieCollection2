@@ -131,7 +131,7 @@ public class Movie implements Comparable<Movie> {
         this.setId(id);
         this.movieName = movieName;
         this.genre = genre;
-        this.screenwriter = screenwriter;
+        this.screenwriter = new Person(name, isMan);
     }
 
     public static Movie parseFromCSV(String line) {

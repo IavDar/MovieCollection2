@@ -34,11 +34,7 @@ public class Person {
         this.name = name;
     }
 
-    public boolean IsMan() {
-        return isMan;
-    }
-
-    public void setMan(boolean man) {
+    public void setGender(boolean man) {
         isMan = man;
     }
 
