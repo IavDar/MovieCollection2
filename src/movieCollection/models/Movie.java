@@ -51,7 +51,7 @@ public class Movie implements Comparable<Movie> {
         return genre;
     }
 
-    public void setGenre(MovieGenre genre) {
+    public void setGenre() {
         this.genre = genre;
     }
 
@@ -59,7 +59,7 @@ public class Movie implements Comparable<Movie> {
         return screenwriter;
     }
 
-    public void setScreenwriter(Person screenwriter) {
+    public void setScreenwriter() {
         this.screenwriter = screenwriter;
     }
     public static int getCounter() {
