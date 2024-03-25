@@ -39,8 +39,10 @@ public class MovieController {
         return this.movieRepo.size();
     }
 
-    public Collection<Movie> handleShowCommand() {
-        return movieRepo.getValues();
+    public List<Movie> handleShowCommand() {
+        List <Movie> list = new ArrayList<>(movieRepo.getValues());
+        Collections.sort(list);
+        return list;
     }
 
     public void handleInsertCommand(
