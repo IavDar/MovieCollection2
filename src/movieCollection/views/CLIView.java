@@ -129,7 +129,7 @@ public class CLIView {
     }
 
     public void startShowCommand() {
-        Collection<Movie> movies = movieController.handleShowCommand();
+        List<Movie> movies = movieController.handleShowCommand();
         if (movies.isEmpty()) {
             System.out.println("Список пуст");
         } else {

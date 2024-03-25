@@ -1,8 +1,6 @@
 package movieCollection.models;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class MovieRepository {
 
@@ -16,7 +14,7 @@ public class MovieRepository {
         return movieMap.values();
     }
 
-    public void add(Movie movie){
+    public void add(Movie movie) {
         movieMap.put(movie.getId(), movie);
     }
 
@@ -25,22 +23,27 @@ public class MovieRepository {
     }
 
     public int size() {
-      return this.movieMap.size();
+        return this.movieMap.size();
     }
-    public boolean containsKey(long idValue){
+
+    public boolean containsKey(long idValue) {
         // для метода startRemoveKeyCommand
         return this.movieMap.containsKey(idValue);
     }
-    public void remove(long idValue){
+
+    public void remove(long idValue) {
         // для метода startRemoveKeyCommand
         this.movieMap.remove(idValue);
     }
-    public void clear(){
+
+    public void clear() {
         // для метода startClearCommand
         this.movieMap.clear();
     }
-    public Set<Long> getIdSet(){
+
+    public Set<Long> getIdSet() {
         // для метода startRemoveGreaterCommand
         return this.movieMap.keySet();
     }
+
 }
