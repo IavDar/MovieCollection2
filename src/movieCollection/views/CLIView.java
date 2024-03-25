@@ -15,7 +15,7 @@ public class CLIView {
     public void run(String filepath) {
 
         movieController = new MovieController(filepath);
-//        movieController.loadMovies(); // метод пустой ???
+
 
         scanner = new Scanner(System.in);
 //        //коллекция фильмов в виде HashMap (ключ - id, значение - объекты класса Movie)
@@ -339,14 +339,6 @@ public class CLIView {
                 System.out.println("Вы ввели неверное значение. Попробуйте ещё раз. ");
             }
         } while (true);
-    }
-
-    void loadTestData()  //метод для тестирования временный
-    {
-        movieController.handleInsertCommand("Инна Веткина", false, "Приключения Буратино", MovieGenre.ACTION);
-        movieController.handleInsertCommand("Евгений Велтистов", true, "Приключения Электроника", MovieGenre.ADVENTURE);
-
-        this.startShowCommand();
     }
 
 }
