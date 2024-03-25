@@ -97,7 +97,7 @@ public class CLIView {
                     break;
 
                 case "update":
-                    movieController.startUpdateCommand(argIn);
+                    this.startUpdateCommand(argIn);
                     break;
 
                 case "remove_key":
@@ -320,6 +320,71 @@ public class CLIView {
             System.out.println("Элемент с id " + idValue + " успешно удалён");
         } else
             System.out.println("Такого элемента нет в списке");
+    }
+
+    public void startUpdateCommand(String argIn) { // Акмур
+        if (!Utils.isInt(argIn) || argIn == null) {
+            System.out.println("Неверное значение id");
+            return;
+        }
+        long idValue = Long.parseLong(argIn);
+
+
+        UPPER:
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Доступные поля для изменения:");
+            for (MutableField field : MutableField.values()) {
+                System.out.println(field);
+            }
+
+            System.out.print("Введите ответ: ");
+            String answer = scanner.nextLine();
+
+            if (!Utils.isEnum(answer, MutableField.class)) {
+                System.out.println("Указано некорректное поле для изменения");
+                continue;
+            }
+            MutableField answerValue = MutableField.valueOf(answer);
+            if (answer.equalsIgnoreCase("GENRE")) {
+                System.out.println("Возможные значения для поля GENRE: " + Arrays.toString(MovieGenre.values()));
+            }
+            System.out.print("Введите новое значение: ");
+            String newValue = scanner.nextLine();
+            System.out.println(newValue);
+
+
+
+
+            switch (answerValue) {
+                case MOVIENAME:
+                    if (!Movie.validateMovieName(newValue)) {
+                        System.out.println("Указанно некорректное новое значение");
+                        continue;
+                    }
+                    movieController.handleUpdateCommand(idValue, answerValue, newValue);
+                    break;
+
+                case GENRE:
+                    if (!Utils.isEnum(newValue, MovieGenre.class)) {
+                        System.out.println("Указанно некорректное новое значение");
+                        continue;
+                    }
+                    movieController.handleUpdateCommand(idValue, answerValue, newValue);
+                    break;
+                case SCREENWRITERNAME:
+                    if (newValue.isEmpty()) {
+                        System.out.println("Указанно некорректное новое значение");
+                        continue;
+                    }
+                    movieController.handleUpdateCommand(idValue, answerValue, newValue);
+                    break;
+                default:
+                    System.out.println("Неподдерживаемое поле");
+            }
+
+            System.out.println("Вы обновили фильм :"+"Movie " +idValue+" "+answerValue+" "+newValue) ;
+        break; }
     }
 
     public void startClearCommand () {

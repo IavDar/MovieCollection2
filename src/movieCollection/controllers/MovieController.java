@@ -50,9 +50,7 @@ public class MovieController {
         this.movieRepo.add(movie1);
     }
 
-    public void startUpdateCommand(String argIn) { // Акмур
 
-    }
 
     public boolean handleRemoveKeyCommand(long idValue) { // Татьяна
         if (this.movieRepo.containsKey(idValue)) {
@@ -102,5 +100,25 @@ public class MovieController {
         }
 
         return counter;
+    }
+
+    public void handleUpdateCommand(long idValue, MutableField answerValue, String newValue) {
+        Movie movie = movieRepo.getById(idValue);
+        if (movie==null) {
+            System.out.println("Некорректный аргумент");
+           return;
+        }
+        // проверить что movie нашелся
+        switch (answerValue) {
+            case MOVIENAME:
+                movie.setMovieName(newValue);
+                break;
+            case GENRE:
+                movie.setGenre();
+                break;
+            case SCREENWRITERNAME:
+                movie.setScreenwriter();
+                break;
+        }
     }
 }
