@@ -11,24 +11,28 @@ public class MovieController {
     private final CSVFileRepository fileRepo;
     Scanner scanner;
 
-    public MovieController(String filepath) {// конструктор
+    public MovieController(String filepath) { // конструктор
         this.scanner = new Scanner(System.in);
         this.movieRepo = new MovieRepository();
         this.fileRepo = new CSVFileRepository(filepath);
+        this.loadFile();
     }
 
     public void addMovie(Movie movie){
         this.movieRepo.add(movie);
     }
 
-    public void handleSaveCommand() {  // сохранить фильмы в файл
+    public void handleSaveCommand() { // сохранить фильмы в файл
         Collection<Movie> movies = this.movieRepo.getValues();
         this.fileRepo.save(movies);
 
     }
 
-    public void loadMovies() {  // загрузить фильмы из файла
-
+    private void loadFile() { // загрузить фильмы из файла
+        Collection<Movie> movies = this.fileRepo.load();
+        for (Movie movie : movies) {
+            this.movieRepo.add(movie);
+        }
     }
 
     public int handleInfoCommand() {//Екатерина
